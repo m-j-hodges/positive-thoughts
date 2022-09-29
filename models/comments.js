@@ -8,3 +8,7 @@ const commentsSchema = mongoose.Schema({
   dateCreated: {type: Date, default: Date.now},
   likes: {type: Number}
 })
+
+const Comment = mongoose.model('Comment', commentsSchema)
+
+module.exports = Comment;
