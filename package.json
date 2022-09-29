@@ -1,0 +1,30 @@
+{
+  "name": "positive-thoughts",
+  "version": "1.0.0",
+  "description": "A website where you can go to get daily inspirational quotes and save them",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-j-hodges/positive-thoughts.git"
+  },
+  "keywords": [
+    "express",
+    "MongoDB",
+    "Apollo",
+    "NodeJS"
+  ],
+  "author": "Matthew Hodges, Lucia Gil, Sean Conrad, Michael Andrews, Jason South",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-j-hodges/positive-thoughts/issues"
+  },
+  "homepage": "https://github.com/m-j-hodges/positive-thoughts#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.6.2"
+  }
+}
