@@ -3,6 +3,7 @@ import {
     ApolloClient,
     InMemoryCache,
     ApolloProvider,
+    createHttpLink,
   }  from "@apollo/client";
 
   //next three lines direct from an activity, they have not been properly defined yet
@@ -10,6 +11,23 @@ import Home from './pages/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+// Construct our main GraphQL API endpoint
+const httpLink = createHttpLink({
+    uri: '/graphql',
+  });
+
+  // Construct request middleware that will attach the JWT token to every request as an `authorization` header
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('id_token');
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  });
 //client configuration
 const client = new ApolloClient({
     uri: '/graphql',
