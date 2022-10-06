@@ -22,3 +22,4 @@ type Profile {
 
 
 `;
+module.exports = typeDefs;
