@@ -5,6 +5,8 @@ import {
     ApolloProvider,
     createHttpLink,
   }  from "@apollo/client";
+  import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
   //next three lines direct from an activity, they have not been properly defined yet
 import Home from './pages/Home';
