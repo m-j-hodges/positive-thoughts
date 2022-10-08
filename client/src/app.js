@@ -1,5 +1,17 @@
 import React from 'react';
 import Home from './pages/home';
+import Navbar from './components/Navbar';
+// import Profile from './pages/profilePage';
+// import SignUp from './pages/signUp';
+// import thoughtsPage from './pages/thoughtsPage';
+// import comments from './components/comments';
+// import header from './components/header';
+// import login from './components/login';
+// import thoughtsFeed from './components/thoughtsFeed';
+
+
+
+
 // import {
 //     ApolloClient,
 //     InMemoryCache,
@@ -39,10 +51,28 @@ import Home from './pages/home';
 
 //code on line 22-29 from an activity, code has not amended to our wireframing yet
 function App() {
+
+  let Component
+  // eslint-disable-next-line default-case
+  switch (window.location.pathname) {
+    case "/":
+      Component = <Home />
+      break
+      // case "/projects":
+      // Component = <Projects />
+      // break
+      // case "/contactMe":
+      // Component = <ContactMe />
+      // break
+      // case "/resume":
+      //   Component = <Resume />
+      //   break
+  }
+
     return (
       <div>
-        hello 
-        <Home />
+      <Navbar />
+        {Component}
 
 
       </div>
