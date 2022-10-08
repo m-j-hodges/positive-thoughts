@@ -7,6 +7,11 @@ type Profile {
     skills: [String]!
   }
 
+type Auth {
+  token: ID!
+  profile: Profile
+}
+
   type Query {
     me: Profile
     profiles: [Profile]!
