@@ -1,13 +1,9 @@
 import React from 'react';
 import Home from './pages/home';
-import Navbar from './components/Navbar';
 // import Profile from './pages/profilePage';
-// import SignUp from './pages/signUp';
+import SignUp from './pages/signUp';
 // import thoughtsPage from './pages/thoughtsPage';
-// import comments from './components/comments';
-// import header from './components/header';
-// import login from './components/login';
-// import thoughtsFeed from './components/thoughtsFeed';
+
 
 
 
@@ -58,9 +54,9 @@ function App() {
     case "/":
       Component = <Home />
       break
-      // case "/projects":
-      // Component = <Projects />
-      // break
+      case "/signup":
+      Component = <SignUp />
+      break
       // case "/contactMe":
       // Component = <ContactMe />
       // break
@@ -71,10 +67,7 @@ function App() {
 
     return (
       <div>
-      <Navbar />
         {Component}
-
-
       </div>
       
     );
