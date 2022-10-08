@@ -18,9 +18,6 @@ const ProfileForm = () => {
     // Since mutation function is async, wrap in a `try...catch` to catch any network errors from throwing due to a failed request.
     try {
       // Execute mutation and pass in defined parameter data as variables
-      const { data } = await addProfile({
-        variables: { name },
-      });
 
       window.location.reload();
     } catch (err) {

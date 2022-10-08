@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-const userSchema = require('./users')
+const User = require('./users')
 
 const commentsSchema = mongoose.Schema({
   content: {type: String, required: true},
-  creator: userSchema,
+  creator: { type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   dateCreated: {type: Date, default: Date.now},
   likes: {type: Number}
 })
