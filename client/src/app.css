@@ -1,0 +1,19 @@
+.btn{
+    width: 10rem;
+    margin: .5rem 1rem 1rem 1rem;
+    align-content: center;
+}
+
+.userInput{
+    margin: 1rem 0 1rem 0;
+    align-items: center;
+
+}
+
+.signUp{
+    margin-top: 7rem;
+}
+
+.row{
+    margin: 0 .1rem 0 .1rem;
+}
