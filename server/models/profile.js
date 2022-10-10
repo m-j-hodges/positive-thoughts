@@ -25,7 +25,10 @@ const profileSchema = new Schema({
     {type: Schema.Types.ObjectId,
     ref: 'Thought'
     }
-  ]
+  ],
+  comments: [{type: Schema.Types.ObjectId,
+  ref: 'Comments'
+  }]
 })
 
 profileSchema.pre('save', async function(next) {
