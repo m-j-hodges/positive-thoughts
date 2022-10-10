@@ -8,9 +8,11 @@ function signUp() {
 
       <form className='card'>
         <div className='text-center'>
+          
           <h3>Sign Up</h3>    
-          <h5>to recieve free encouraging quotes</h5>
+          <h5>to receive free encouraging quotes</h5>
         </div>
+        
         
         {/* user enters name */}
         {/* <label>First Name</label> */}
