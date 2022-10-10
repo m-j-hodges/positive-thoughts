@@ -60,6 +60,7 @@ const fetchResult = Axios.get('https://type.fit/api/quotes')
     return (
       <div>
       <div id="quotesDiv"></div>
+      <div id="commentsFeed"></div>
       <button onClick={fetchData}>Click Me!</button> 
       </div>
     )
