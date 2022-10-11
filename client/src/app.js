@@ -3,7 +3,11 @@ import Home from './pages/home';
 // import Profile from './pages/profilePage';
 import SignUp from './pages/signUp';
 // import thoughtsPage from './pages/thoughtsPage';
-
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
 
 
 
@@ -45,6 +49,11 @@ import SignUp from './pages/signUp';
 //     cache: new InMemoryCache(),
 // });
 
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
+
 //code on line 22-29 from an activity, code has not amended to our wireframing yet
 function App() {
 
@@ -66,10 +75,11 @@ function App() {
   }
 
     return (
+      <ApolloProvider client={client}>
       <div>
         {Component}
       </div>
-      
+      </ApolloProvider>
     );
   }
 
