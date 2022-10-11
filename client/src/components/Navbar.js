@@ -13,7 +13,7 @@ function Navbar() {
             <a className="nav-item nav-link active" href="/Home">Home <span className="sr-only">(current)</span></a>
             <a className="nav-item nav-link" href="/profile">Profile</a>
             <a className="nav-item nav-link" href="/signup">Sign Up</a>
-            <a className="nav-item nav-link" href="/signup">Login</a>
+            <a className="nav-item nav-link" href="/login">Login</a>
             </div>
         </div>
     </nav>
