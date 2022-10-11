@@ -5,6 +5,13 @@ import Login from './components/login';
 import SignUp from './pages/signUp';
 // import thoughtsPage from './pages/thoughtsPage';
 
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
+
+
 function App() {
 
   let Component
@@ -25,10 +32,11 @@ function App() {
   }
 
     return (
+      <ApolloProvider client={client}>
       <div>
         {Component}
       </div>
-      
+      </ApolloProvider>
     );
   }
 

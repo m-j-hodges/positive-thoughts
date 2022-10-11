@@ -11,11 +11,26 @@ type Auth {
   token: ID!
   profile: Profile
 }
+type Comment {
+  _id: ID
+  content: String!
+  creator: String
+  likes: Int
+}
+type Thought {
+  _id: ID
+  author: String
+  text: String
+}
 
   type Query {
     me: Profile
     profiles: [Profile]!
     profile(profileId: ID!): Profile
+    comment: Comment
+    comments: [Comment]
+    thought: Thought
+    thoughts: [Thought]
   }
 
   type Mutation {

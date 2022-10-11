@@ -8,6 +8,17 @@ export const QUERY_PROFILES = gql`
       name
       skills
     }
+  }`
+
+export const QUERY_PROFILE = gql`
+  query getProfile {
+    profile {
+      name
+      email
+      password
+      favThoughts
+      comments
+    }
   }
 `;
 

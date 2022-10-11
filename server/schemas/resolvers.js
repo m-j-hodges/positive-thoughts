@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Profile } = require('../models');
+const { Profile} = require('../models');
+const Comment = require('../models/comments')
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -18,6 +19,14 @@ const resolvers = {
         }
         throw new AuthenticationError('You need to be logged in!');
     },
+    comments: async () => {
+        return Comment.find();
+    },
+    comment: async (parent, args, context) => {
+      if(context.user) {
+        return Comment.findOne({_id: context.comment._id});
+      }
+    }
   },
   Mutation: {
     addProfile: async (parent, { name, email, password }) => {
