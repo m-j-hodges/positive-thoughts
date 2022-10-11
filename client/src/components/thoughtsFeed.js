@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react'
 import "./ThoughtsCss.css"
 import {QUERY_COMMENTS} from  '../utils/queries'

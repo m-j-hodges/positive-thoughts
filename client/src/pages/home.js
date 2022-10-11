@@ -1,8 +1,10 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+
 import Thoughts from '../components/ThoughtsFeed'
 import {QUERY_COMMENTS} from  '../utils/queryComments'
 import {useQuery} from '@apollo/client'
+
 
 
 
