@@ -4,14 +4,22 @@ import Axios from 'axios'
 import { useState, useEffect } from 'react'
 import "./ThoughtsCss.css"
 import {QUERY_COMMENTS} from  '../utils/queries'
+import $ from 'jquery'
+import {STORE_THOUGHTS} from '../utils/storeThoughts'
+import {useMutation} from '@apollo/client'
 
 
-function Thoughts({comments}) {
+function Thoughts({comments, manyThoughts}) {
+
+  const [addThought, { error }] = useMutation(STORE_THOUGHTS);
   //  if(loggedIn) {
 const [newFact, setFact] = useState('')
 // const [author, setAuthor] = useState('')
 let cardString = []
+
+//fetches Thoughts
 const fetchData = () => {
+
 
 const cachesQuotes = localStorage.getItem('quotes')
 let divArray
@@ -25,6 +33,15 @@ const fetchResult = Axios.get('https://type.fit/api/quotes')
     divArray = res.data
     divArray.length = 20
     saveQuotes =localStorage.setItem('quotes', JSON.stringify(divArray))
+    try{
+    const { data } = addThought({
+      variables: {...divArray},
+    })
+  }
+  catch (err) {
+    console.log(err)
+  }
+    
   })}
 let count = 0
   divArray = JSON.parse(cachesQuotes)
@@ -46,7 +63,6 @@ let count = 0
     return cardString, count
     })
     console.log(newArray)
-  
 }
   //   const relevantData = data.map((item) => {
   //   return `<div class="card">
@@ -57,25 +73,49 @@ let count = 0
   // </div>`
   //   })
   // }
- 
+
+function collapseIt(event) {
+  const {target} = event
+  $('.collapse').toggle()
+  
+}
+
     return (
       <div>
-      <div id="quotesDiv"></div>
-      <div className="card-body" id='comments'>
-        {comments[0].map((item) =>{
+      <div id="quotesDiv">
+        {manyThoughts && manyThoughts.map((oneThought) => (
+        <div class="card my-4" id={oneThought._id}>
+        <div class="card-header">
+          Quote
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>${oneThought.text}</p>
+            <footer class="blockquote-footer">${oneThought.author} <cite title="Source Title"></cite></footer>
+          </blockquote>
+        </div>
+        <button class="btn btn-primary" id="commentBtn${count}">comment</button>
+      </div>
+
+        ))}
+      </div>
+        {comments && comments.map((comment) => (
           <div>
-          <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-          <div class="col">
-          <div class="collapse multi-collapse" id="multiCollapseExample1">
-            <div class="card card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          <p>
+          <a id={comment._id} className="btn btn-primary collapsed" onClick={(event) => collapseIt(event)} data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+          </p>
+          <div className="row">
+          <div className="col">
+            <div className="collapse multi-collapse" id="multiCollapseExample1">
+              <div className="card card-body">
+              Author: {comment.creator} Comment: {comment.content}
             </div>
           </div>
-        </div>
-        </div>
-        })}
-      </div>
-      <button onClick={fetchData}>Click Me!</button> 
+          </div>
+          </div>
+          </div>
+        ))}
+      <button onClick={!manyThoughts ? fetchData : false}>Click Me!</button> 
       </div>
     )
 
