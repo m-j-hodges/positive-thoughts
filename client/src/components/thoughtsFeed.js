@@ -3,7 +3,7 @@ import Axios from 'axios'
 // import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react'
 import "./ThoughtsCss.css"
-import {QUERY_COMMENTS} from  '../utils/queries'
+// import {QUERY_COMMENTS} from  '../utils/queries'
 
 
 function Thoughts({comments}) {
