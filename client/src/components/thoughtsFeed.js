@@ -9,7 +9,7 @@ import {STORE_THOUGHTS} from '../utils/storeThoughts'
 import {useMutation} from '@apollo/client'
 
 
-function Thoughts({comments, manyThoughts}) {
+function Thoughts({comments, thoughts}) {
 
   const [addThought, { error }] = useMutation(STORE_THOUGHTS);
   //  if(loggedIn) {
@@ -24,7 +24,7 @@ const fetchData = () => {
 const cachesQuotes = localStorage.getItem('quotes')
 let divArray
 let saveQuotes
-if(!cachesQuotes) {
+if(!cachesQuotes || !thoughts) {
   
 const fetchResult = Axios.get('https://type.fit/api/quotes')
   .then((res)=> {
@@ -33,14 +33,10 @@ const fetchResult = Axios.get('https://type.fit/api/quotes')
     divArray = res.data
     divArray.length = 20
     saveQuotes =localStorage.setItem('quotes', JSON.stringify(divArray))
-    try{
     const { data } = addThought({
       variables: {...divArray},
     })
-  }
-  catch (err) {
-    console.log(err)
-  }
+  
     
   })}
 let count = 0
@@ -81,20 +77,20 @@ function collapseIt(event) {
 }
 
     return (
-      <div>
       <div id="quotesDiv">
-        {manyThoughts && manyThoughts.map((oneThought) => (
-        <div class="card my-4" id={oneThought._id}>
-        <div class="card-header">
-          Quote
+      <div className="card">
+        {thoughts && thoughts.map((oneThought) => (
+        <div className="card my-4" id={oneThought._id}>
+        <div className="card-header">
+          {oneThought.author}
         </div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
+        <div className="card-body">
+          <blockquote className="blockquote mb-0">
             <p>${oneThought.text}</p>
-            <footer class="blockquote-footer">${oneThought.author} <cite title="Source Title"></cite></footer>
+            <footer className="blockquote-footer">${oneThought.author} <cite title="Source Title"></cite></footer>
           </blockquote>
         </div>
-        <button class="btn btn-primary" id="commentBtn${count}">comment</button>
+        <button className="btn btn-primary" id="commentBtn${count}">comment</button>
       </div>
 
         ))}
@@ -115,7 +111,7 @@ function collapseIt(event) {
           </div>
           </div>
         ))}
-      <button onClick={!manyThoughts ? fetchData : false}>Click Me!</button> 
+      <button onClick={fetchData}>Click Me!</button> 
       </div>
     )
 
