@@ -39,6 +39,8 @@ type Thought {
     addSkill(profileId: ID!, skill: String!): Profile
     removeProfile(profileId: ID!): Profile
     removeSkill(profileId: ID!, skill: String!): Profile
+    addThoughts(author: String!, text: String!) : [Thought]
+    addThought(author: String!, text: String!): Thought
   }
 
 
