@@ -15,6 +15,7 @@ export const QUERY_PROFILE = gql`
     profile {
       name
       email
+      username
       password
       favThoughts
       comments

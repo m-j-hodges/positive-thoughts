@@ -1,8 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Profile} = require('../models');
 const Comment = require('../models/comments');
 const Thought = require('../models/thoughts');
 const { signToken } = require('../utils/auth');
+const Profile = require('../models/profile')
 
 const resolvers = {
   Query: {
@@ -27,6 +27,12 @@ const resolvers = {
       if(context.user) {
         return Comment.findOne({_id: context.comment._id});
       }
+    },
+    thought: async (parent, {thoughtId}) => {
+      return Thought.findOne({_id: thoughtId })
+    },
+    thoughts: async () => {
+      return Thought.find()
     }
   },
   Mutation: {
@@ -36,8 +42,8 @@ const resolvers = {
     addThoughts: async (parent, [data]) => {
       return Thought.insertMany([data])
     },
-    addProfile: async (parent, { name, email, password }) => {
-      const profile = await Profile.create({ name, email, password });
+    addProfile: async (parent, { name, email, password, username }) => {
+      const profile = await Profile.create({ name, email, password, username });
       const token = signToken(profile);
 
       return { token, profile };
@@ -57,6 +63,18 @@ const resolvers = {
 
       const token = signToken(profile);
       return { token, profile };
+    },
+    addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
+      const findUser = Profile.findOne({username: commentor})
+      const UserId = findUser._id
+      return Thought.findOneAndUpdate(
+        {_id: thoughtId},
+        {
+          $addToSet: {comments: {commentText}}
+        },
+        {new: true,
+        runValidators: true},
+      )
     },
 
     addSkill: async (parent, { profileId, skill }, context) => {

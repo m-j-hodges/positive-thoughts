@@ -1,11 +1,18 @@
 import { gql } from '@apollo/client';
 
 
-export const STORE_THOUGHTS = gql`  
-mutation addThoughts($text: String!, $author: String!) {
-  addThought(text: $text, author: $author) {
-    _id
+export const STORE_THOUGHT = gql`  
+mutation AddThought($author: String!, $text: String!) {
+  addThought(author: $author, text: $text) {
     author
     text
   }
 }`
+
+// export const STORE_THOUGHT = gql`
+// mutation Mutation($author: String!, $text: String!) {
+//   addThought(author: $author, text: $text) {
+//     author
+//     text
+//   }
+// }`
