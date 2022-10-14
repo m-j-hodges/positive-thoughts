@@ -4,7 +4,9 @@
   "description": "A website where you can go to get daily inspirational quotes and save them",
   "main": "server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "start": "concurrently \" cd server && npm start\" \" cd client && npm start\"",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
@@ -23,7 +25,7 @@
   "author": "Matthew Hodges, Lucia Gil, Sean Conrad, Michael Andrews, Jason South",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.3.0"
   },
   "bugs": {
     "url": "https://github.com/m-j-hodges/positive-thoughts/issues"
