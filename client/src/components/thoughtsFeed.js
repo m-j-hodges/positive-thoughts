@@ -46,9 +46,9 @@ async function querySave(e) {
   
 
   try{
-  divArray.forEach((quote) => {
-  const {data} = async() => await addThought({
-    variables: {author: quote.author, text: quote.text}
+  divArray.forEach(async (quote) => {
+  const {data} = await addThought({
+    variables: {author: quote.author, text:quote.text}
   })
 }
 
