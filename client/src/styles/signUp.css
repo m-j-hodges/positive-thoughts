@@ -1,14 +1,4 @@
 .cascading-right {
-<<<<<<< HEAD
-    margin-right: -50px;
-  }
-  
-  @media (max-width: 900px) {
-    .cascading-right {
-      margin-right: 0;
-    }
-  }
-=======
     margin-right: -20px;
   }
   
@@ -18,4 +8,3 @@
     }
   }
 
->>>>>>> 56af9557d59f1d94309c5bbb00cfa0f81cb45666
