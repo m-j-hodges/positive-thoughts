@@ -3,10 +3,14 @@ import { gql } from '@apollo/client';
 
 
 export const QUERY_THOUGHTS = gql`  
-query Thoughts {
+query Query {
   thoughts {
+    _id
     author
     text
-    _id
+    comments {
+      commentText
+      commentor
+    }
   }
 }`

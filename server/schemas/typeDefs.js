@@ -17,14 +17,15 @@ type Auth {
 }
 type Comment {
   _id: ID
-  content: String!
-  creator: String
-  likes: Int
+  commentText: String
+  commentor: ID
+  createdAt: String
 }
 type Thought {
   _id: ID
   author: String
   text: String
+  comments: [Comment]
 }
 
   type Query {

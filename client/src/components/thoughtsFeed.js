@@ -5,16 +5,21 @@ import { useState, useEffect } from 'react'
 import "./ThoughtsCss.css"
 import {QUERY_COMMENTS} from  '../utils/queries'
 import $ from 'jquery'
-import {STORE_THOUGHT} from '../utils/storeThoughts'
+import { STORE_THOUGHT} from '../utils/storeThoughts'
 import {useMutation} from '@apollo/client'
 import { ADD_PROFILE } from '../utils/mutations'
+import {STORE_COMMENT} from '../utils/storeComment'
 
 
 
 let divArray
 function Thoughts({thoughts}) {
+  const [submitBtn, setSubmit] = useState('submit')
+  const [storeText, setText] = useState('')
+  const [storeUser, setUser] = useState('')
   const [displayComment, showCommentBox] = useState('d-none')
   const [addThought, { data,loading,error }] = useMutation(STORE_THOUGHT);
+  const [addComment, {cData, load, err}] = useMutation(STORE_COMMENT)
   //  if(loggedIn) {
 const [newFact, setFact] = useState('')
 // const [author, setAuthor] = useState('')
@@ -61,9 +66,25 @@ if(error) {
   return `submission error ${error}`
 }
 
-function submitForm() {
-  
+function submitForm(eve) {
+  const {id} = eve.target
+  const splitId = id.split("_")
+  const newThoughtId = splitId[1];
+  const formData = {thoughtId: newThoughtId, commentText: storeText, commentor: storeUser}
+  const {data} = async() => await addComment({
+    variables: {formData}
+  })
+  // window.location.reload()
 
+}
+
+function showComment(e) {
+  e.preventDefault();
+  const {id} = e.target
+  const newId = id.split('_')
+  const targetDiv = document.getElementById(`div${newId[1]}`)
+  targetDiv.classList.remove('d-none')
+  targetDiv.classList.add('d-block')
 }
 
     return (
@@ -79,34 +100,24 @@ function submitForm() {
             <footer className="blockquote-footer">{item.author} <cite title="Source Title"></cite></footer>
           </blockquote>
         </div>
-        <button onClick={()=>{showCommentBox("d-block")}} className="btn btn-primary">leave comment</button>
-        <div className={displayComment}>
+        <button id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}} className="btn btn-primary">leave comment</button>
+        <div id={"div" + item._id} className={displayComment}>
         <form>
   <div className="form-group">
-    <label for="formGroupExampleInput">Your Comment :</label>
-    <input type="text" className="form-control" id={'commentText' + item._id} placeholder="Example input" />
-    <input type="text" className="form-control" id={'commentor' + item._id} placeholder="Your Username" />
-    <button id={'submit' + item._id}type="submit" onClick={submitForm} className="btn btn-primary">Submit</button>
+    <label>Your Comment :</label>
+    <input type="text" onChange={(e)=> setText(e.target.value)}className="form-control" id={'commentText' + item._id} placeholder="Example input" />
+    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control" id={'commentor' + item._id} placeholder="Your Username" />
+    <button id={'submit' + '_' + item._id} type="submit" onClick={(eve) => submitForm(eve)} className="btn btn-primary">{load ? 'loading...' :submitBtn}</button>
   </div>
   </form>
         </div>
-        {item.comments ? item.comments.map((eachItem) => (
+        {item.comments.map((eachItem) => (
+          eachItem ? (
           <div>
-          <p>
-          <a id={eachItem._id} onClick={collapseIt} className="btn btn-primary collapsed" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-          </p>
-          <div className="row">
-          <div className="col">
-            <div className="collapse multi-collapse" id={'collapse' + eachItem._id}>
-              <div className="card card-body">
-              Author: {eachItem.commentor} Comment: {eachItem.commentText}
-            </div>
-          </div>
-          </div>
-          </div>
-          </div>
-
-        )): (<div>There are no comments yet...</div>)}
+          <p> Author: {eachItem.commentor}</p>
+          <p> Comment: {eachItem.commentText}</p>
+          </div> ) : <div> No comments yet... </div> 
+        ))}
       </div>
       ))}
       <button className="btn btn-success" onClick={(e) => querySave(e)}>Query and Save Data</button>

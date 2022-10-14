@@ -9,10 +9,4 @@ mutation AddThought($author: String!, $text: String!) {
   }
 }`
 
-// export const STORE_THOUGHT = gql`
-// mutation Mutation($author: String!, $text: String!) {
-//   addThought(author: $author, text: $text) {
-//     author
-//     text
-//   }
-// }`
+
