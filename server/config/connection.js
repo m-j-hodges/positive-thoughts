@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const connectUri = 'mongodb://127.0.0.1:27017/thoughtsDB'
+require('dotenv').config();
 
-mongoose.connect(connectUri, {
+mongoose.connect(process.env.connectUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
