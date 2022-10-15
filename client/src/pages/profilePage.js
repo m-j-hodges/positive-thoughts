@@ -14,6 +14,9 @@ from 'mdb-react-ui-kit';
 
 function profilePage() {
   return (
+    <div>
+<Navbar />
+    
     
   <MDBContainer fluid className='my-5'>
     <MDBRow className='g-2 align-items-center'>
@@ -99,6 +102,7 @@ function profilePage() {
 
     </MDBRow>
   </MDBContainer>
+  </div>
   )
 }
 
