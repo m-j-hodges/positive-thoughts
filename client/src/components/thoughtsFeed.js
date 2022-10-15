@@ -66,12 +66,12 @@ if(error) {
   return `submission error ${error}`
 }
 
-function submitForm(eve) {
+async function submitForm(eve) {
   const {id} = eve.target
   const splitId = id.split("_")
   const newThoughtId = splitId[1];
   const formData = {thoughtId: newThoughtId, commentText: storeText, commentor: storeUser}
-  const {data} = async() => await addComment({
+  const {data} = await addComment({
     variables: {formData}
   })
   // window.location.reload()
@@ -105,9 +105,9 @@ function showComment(e) {
         <form>
   <div className="form-group">
     <label>Your Comment :</label>
-    <input type="text" onChange={(e)=> setText(e.target.value)}className="form-control" id={'commentText' + item._id} placeholder="Example input" />
-    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control" id={'commentor' + item._id} placeholder="Your Username" />
-    <button id={'submit' + '_' + item._id} type="submit" onClick={(eve) => submitForm(eve)} className="btn btn-primary">{load ? 'loading...' :submitBtn}</button>
+    <input type="text" onChange={(e)=> setText(e.target.value)}className="form-control m-3" id={'commentText' + item._id} placeholder="Example input" />
+    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control m-3" id={'commentor' + item._id} placeholder="Your Username" />
+    <button className="btn btn-primary m-2" id={'submit' + '_' + item._id} type="submit" onClick={(eve) => submitForm(eve)} >{load ? 'loading...' :submitBtn}</button>
   </div>
   </form>
         </div>
