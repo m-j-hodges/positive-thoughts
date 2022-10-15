@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 
 import Thoughts from '../components/thoughtsFeed'
-import {QUERY_COMMENTS} from  '../utils/queryComments'
 import {useQuery} from '@apollo/client'
 import {QUERY_THOUGHTS} from '../utils/queryThoughts'
 
@@ -10,17 +9,18 @@ import {QUERY_THOUGHTS} from '../utils/queryThoughts'
 
 const Home = () => {
   
-const {loadingThoughts, manyThoughts} = useQuery(QUERY_THOUGHTS)
-const { loading, data} = useQuery(QUERY_COMMENTS)
+const {loading, data} = useQuery(QUERY_THOUGHTS)
 
-const commentFeed = data?.comments || [];
+
+
+const thoughtsFeed = data?.thoughts || [];
 
   return (
     <div>
 <Navbar />
-{loading || loadingThoughts ? (<div>Loading...</div>) :(
+{loading ? (<div>Loading...</div>) :(
  <div className="col-12 col-md-8 mb-3">
-<Thoughts comments={commentFeed} thoughts={manyThoughts}/>
+<Thoughts thoughts={thoughtsFeed}/>
 </div> 
 )}
 </div>
