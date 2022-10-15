@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './pages/home';
-// import Profile from './pages/profilePage';
+import Profile from './pages/profilePage';
 import Login from './components/login';
 import SignUp from './pages/signUp';
 // import thoughtsPage from './pages/thoughtsPage';
@@ -29,6 +29,9 @@ function App() {
       break
       case "/login":
       Component = <Login />
+      break
+      case "/profile":
+      Component = <Profile />
       break
       // case "/resume":
       //   Component = <Resume />
