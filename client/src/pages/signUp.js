@@ -1,5 +1,6 @@
 import React from 'react';
 import './signUp.css';
+//import Navbar from '../components/Navbar';
 
 import {
   MDBBtn,
@@ -13,8 +14,12 @@ import {
 }
 from 'mdb-react-ui-kit';
 
+
+
 function signUp() {
   return (
+
+  
     <MDBContainer fluid className='my-5'>
 
       <MDBRow className='g-0 align-items-center'>

@@ -17,3 +17,8 @@
 .row{
     margin: 0 .1rem 0 .1rem;
 }
+    .photo {
+        background-image: url("./img/stacked_rocks.png");
+        background-repeat: no-repeat;
+        background-size: 100% 20%;
+    }
