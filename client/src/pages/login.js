@@ -42,7 +42,7 @@ export default function Login() {
               </div>
 
               <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
-              <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+              <MDBBtn className="mb-4 w-100" href="/signUp">Sign up</MDBBtn>
 
             </MDBCardBody>
 

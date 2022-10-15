@@ -12,7 +12,12 @@ import {
 }
 from 'mdb-react-ui-kit';
 
+
+
 function profilePage() {
+
+
+
   return (
     <div>
 <Navbar />
