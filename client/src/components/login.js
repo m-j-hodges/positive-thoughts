@@ -25,11 +25,11 @@ export default function Login() {
       
         <MDBRow className='g-0 d-flex align-items-center'>
         
-          <MDBCol md='4'>
+          <MDBCol md='5'>
             <MDBCardImage src={image}  className='rounded-t-5 rounded-tr-lg-0' fluid />
           </MDBCol>
 
-          <MDBCol md='10'>
+          <MDBCol md='6'>
           <MDBTypography className='text-center h1'>Positive Thoughts</MDBTypography>
             <MDBCardBody>
                          
