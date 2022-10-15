@@ -1,5 +1,5 @@
 import React from 'react';
-import './signUp.css';
+import '../styles/signUp.css';
 
 import {
   MDBBtn,
@@ -18,9 +18,9 @@ function signUp() {
     <MDBContainer fluid className='my-5'>
 
       <MDBRow className='g-0 align-items-center'>
-        <MDBCol col='6'>
+        <MDBCol size='lg' col='6'>
 
-          <MDBCard className='my-5 cascading-right' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
+          <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
             <MDBCardBody className='p-5 shadow-5 text-center'>
 
               <h2 className="fw-bold mb-2">Sign up</h2>
@@ -28,16 +28,16 @@ function signUp() {
 
               <MDBRow>
                 <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' placeholder='First name' id='form1' type='text'/>
+                  <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text'/>
                 </MDBCol>
 
                 <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' placeholder='Last name' id='form2' type='text'/>
+                  <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text'/>
                 </MDBCol>
               </MDBRow>
               
-              <MDBInput wrapperClass='mb-4' placeholder='email' id='form3' type='email'/>
-              <MDBInput wrapperClass='mb-4' placeholder='Password' id='form4' type='password'/>
+              <MDBInput wrapperClass='mb-4' label='email' id='typeEmail' type='email'/>
+              <MDBInput wrapperClass='mb-4' label='Password' id='typePassword' type='password'/>
 
               <MDBBtn className='w-100 mb-4' size='md'>Sign Up</MDBBtn>
 
@@ -66,10 +66,10 @@ function signUp() {
           </MDBCard>
         </MDBCol>
 
-        <MDBCol col='6'>
-          <p className='align-items-center'>Positive Thoughts</p>
+        {/* image with logo above....still working on logo */}
+        <MDBCol size='lg' col='6'>
+          <p className='text-center'>Positive Thoughts</p>
         <img src='https://mdbootstrap.com/img/new/slides/041.webp' className='img-fluid w-100 rounded shadow-4' alt='' fluid/>
-        
         </MDBCol>
 
       </MDBRow>
