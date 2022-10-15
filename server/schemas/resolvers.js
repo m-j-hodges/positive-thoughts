@@ -70,7 +70,7 @@ const resolvers = {
       return Thought.findOneAndUpdate(
         {_id: thoughtId},
         {
-          $addToSet: {comments: {commentText}}
+          $addToSet: {comments: {commentText, commentor}}
         },
         {new: true,
         runValidators: true},
