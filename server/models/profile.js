@@ -1,4 +1,4 @@
-const {mongoose, Schema} = require('mongoose');
+const { mongoose, Schema } = require('mongoose');
 const bcrypt = require('bcrypt')
 
 
@@ -9,10 +9,16 @@ const profileSchema = new Schema({
     unique: true,
     trim: true,
   },
-  name: {
+  firstName: {
     type: String,
-    required:true,
-    unique: true,
+    required: true,
+    unique: false,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    unique: false,
     trim: true,
   },
   email: {
@@ -27,21 +33,23 @@ const profileSchema = new Schema({
     minlength: 5,
   },
   favThoughts: [
-    {type: Schema.Types.ObjectId,
-    ref: 'Thought'
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Thought'
     }
   ],
-  comments: [{type: Schema.Types.ObjectId,
-  ref: 'Comments'
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comments'
   }]
 })
 
-profileSchema.pre('save', async function(next) {
+profileSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-next();
+  next();
 })
 
 profileSchema.methods.isCorrectPassword = async function (password) {
