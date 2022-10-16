@@ -48,13 +48,17 @@ type Thought {
     addThoughts(author: String!, text: String!) : [Thought]
     addThought(author: String!, text: String!): Thought
     addComment(thoughtId: String!, commentText: String!, commentor: String!): Thought
+    addUser(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): newuser
   }
 
   
-  type User {
+  type newuser {
+    _id: ID
+    firstName: String
+    lastName: String
+    username: String
     email: String
     password: String
-    token: String
   }
 
   input SignUpInput {
