@@ -41,7 +41,7 @@ type Thought {
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addProfile(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): Auth
+    addProfile(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): Profile
     addSkill(profileId: ID!, skill: String!): Profile
     removeProfile(profileId: ID!): Profile
     removeSkill(profileId: ID!, skill: String!): Profile

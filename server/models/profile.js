@@ -12,13 +12,13 @@ const profileSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    unique: false,
+    unique: true,
     trim: true,
   },
   lastName: {
     type: String,
     required: true,
-    unique: false,
+    unique: true,
     trim: true,
   },
   email: {
