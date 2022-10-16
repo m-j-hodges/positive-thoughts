@@ -2,7 +2,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const Comment = require('../models/comments');
 const Thought = require('../models/thoughts');
 const { signToken } = require('../utils/auth');
-const Profile = require('../models/profile')
+const Profile = require('../models/profile');
+const newuser = require('../models/users');
 
 const resolvers = {
   Query: {
@@ -43,28 +44,33 @@ const resolvers = {
       return Thought.insertMany([data])
     },
 
-    addProfile: async ({ firstName, lastName, email, password, username }) => {
+    addProfile: async (parent, { firstName, lastName, email, password, username }) => {
       const profile = await Profile.create({ firstName, lastName, email, password, username });
       const token = signToken(profile);
 
       return { token, profile };
     },
-    login: async (parent, { email, password }) => {
-      const profile = await Profile.findOne({ email });
-
-      if (!profile) {
-        throw new AuthenticationError('No profile with this email found!');
-      }
-
-      const correctPw = await profile.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw new AuthenticationError('Incorrect password!');
-      }
-
-      const token = signToken(profile);
-      return { token, profile };
+    addUser: async (parent, { firstName, lastName, email, password, username }) => {
+      return newuser.create({ firstName, lastName, email, password, username });
     },
+
+    // login: async (parent, { email, password }) => {
+    //   const profile = await Profile.findOne({ email });
+
+    //   if (!profile) {
+    //     throw new AuthenticationError('No profile with this email found!');
+    //   }
+
+    //   const correctPw = await profile.isCorrectPassword(password);
+
+    //   if (!correctPw) {
+    //     throw new AuthenticationError('Incorrect password!');
+    //   }
+
+    //   const token = signToken(profile);
+    //   return { token, profile };
+    // },
+
 
     addComment: async (parent, { thoughtId, commentor, commentText }, context) => {
       const findUser = Profile.findOne({ username: commentor })

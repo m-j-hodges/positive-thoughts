@@ -41,20 +41,24 @@ type Thought {
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addProfile(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): Profile
+    addProfile(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): Auth
     addSkill(profileId: ID!, skill: String!): Profile
     removeProfile(profileId: ID!): Profile
     removeSkill(profileId: ID!, skill: String!): Profile
     addThoughts(author: String!, text: String!) : [Thought]
     addThought(author: String!, text: String!): Thought
     addComment(thoughtId: String!, commentText: String!, commentor: String!): Thought
+    addUser(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): newuser
   }
 
   
-  type User {
+  type newuser {
+    _id: ID
+    firstName: String
+    lastName: String
+    username: String
     email: String
     password: String
-    token: String
   }
 
   input SignUpInput {
