@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import image from '../images/PositiveThoughts.bmp'
 import {
   MDBBtn,
@@ -15,9 +15,66 @@ import {
 
 from 'mdb-react-ui-kit';
 
-import '../styles/loginPage.css'
+import '../styles/loginPage.css';
+// import {useMutation} from '@apollo/client'
+// import { LOGIN } from '@apollo/client'
+// import Auth from '../utils/auth';
+
 
 export default function Login() {
+
+    // const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+    // const [validated] = useState(false);
+    // const [showAlert, setShowAlert] = useState(false);
+  
+    // const [login, { error }] = useMutation(LOGIN);
+  
+    // useEffect(() => {
+    //   if (error) {
+    //     setShowAlert(true);
+    //   } else {
+    //     setShowAlert(false);
+    //   }
+    // }, [error]);
+  
+    // const handleInputChange = (event) => {
+    //   const { name, value } = event.target;
+    //   setUserFormData({ ...userFormData, [name]: value });
+    // };
+  
+    // const handleFormSubmit = async (event) => {
+    //   event.preventDefault();
+  
+    //   const form = event.currentTarget;
+    //   if (form.checkValidity() === false) {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //   }
+  
+    //   try {
+    //     const { data } = await login({
+    //       variables: { ...userFormData },
+    //     });
+  
+    //     console.log(data);
+    //     Auth.login(data.login.token);
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
+  
+    //   // clear form values
+    //   setUserFormData({
+    //     email: '',
+    //     password: '',
+    //   });
+  
+  
+    // }
+
+
+
+
+
    return (
     
     <MDBContainer className='my-5'>
