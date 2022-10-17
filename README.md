@@ -10,7 +10,7 @@ I want to use a website that displays inspirational quotes
 So that I can comment with others and store my favorite quotes. 
 
 ## Table of Contents
-1. [FEATURES] (features)
+1. [FEATURES](#features)
 2. [INSTALLATION](#installation)
 3. [PREVIEW](preview)
 4. [AUTHORS](#authors)
