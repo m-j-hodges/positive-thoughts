@@ -76,25 +76,24 @@ const handleFormSubmit = async (event) => {
                   <MDBCardImage src={image}  className='w-0' fluid />
                 </MDBCol>
                 <MDBCol>   
-                   <form onSubmit={handleFormSubmit}>
-                  <h2 className="fw-bold mb-2">Sign up</h2>
-                  <h5 className='mb-5'>to receive inspiring quotes</h5>   
-                  <div className='row'>
-                  
+                  <form onSubmit={handleFormSubmit}>
+                    <h2 className="fw-bold mb-2">Sign up</h2>
+                    <h5 className='mb-5'>to receive inspiring quotes</h5>   
                       {/* <label for="form1"> first name:</label> */}
-                     
-                    <input name="firstName" className="form-control" onChange={handleInputChange} label='Firstname' id='form1'placeholder='First Name' type='text'/>
-               
-                    <div className="col-4">
-                      <input name="lastName"  className="form-control" onChange={handleInputChange} label='Lastname' id='form2' placeholder='Last Name' type='text'/>
-                      <input name="username"  className="form-control" onChange={handleInputChange} label='username' id='form3' placeholder='Username' type='text'/>
-                    </div>
-                  </div>
+                  <MDBRow>
+                    <MDBCol className='col-6'>
+                      <MDBInput name='First Name' wrapperClass='mb-4' onChange={handleInputChange} label='First Name' id='form1' type='text'/>
+                    </MDBCol> 
+                    <MDBCol className='col-6'>
+                      <MDBInput name='Last Name' wrapperClass='mb-4' onChange={handleInputChange} label='Last Name' id='form1' type='text'/>
+                    </MDBCol>
+                  </MDBRow>
+                    <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/>
                     <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='email' id='typeEmail' type='email'/>
                     <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
                     <MDBBtn className='w-100 mb-4'  size='md'>Sign Up</MDBBtn>
                         
-                      </form>
+                  </form>
                     
                       
                 </MDBCol>
