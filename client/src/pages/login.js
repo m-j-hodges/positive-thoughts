@@ -87,8 +87,18 @@ console.log("hi");
 
             <input name='email' onChange={handleInputChange} className='col-xs-2' label='email address' id='typeEmail' type='email' />
             <input name='password' onChange={handleInputChange} label='password' id='typePassword' type='password' />
-
-            <Link to={`/home`}><button className="mb-4 w-100">Sign in</button></Link>
+            {Auth.loggedIn() ? (
+                <>
+                  <Link to='/home'>
+                  <button className="mb-4 w-100">Sign in</button>
+                  </Link>
+                </>
+              ) : (
+                <Link to='/'>
+                <button className="mb-4 w-100">Sign in</button>
+                </Link>
+              )}
+            
             <button className="mb-4 w-100" href="/signUp">Sign up</button>
                 </form>         
 
