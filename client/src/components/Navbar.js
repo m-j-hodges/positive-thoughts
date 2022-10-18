@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Auth from '../utils/auth'
 function Navbar() {
   return (
     
@@ -15,7 +16,8 @@ function Navbar() {
             <div className="navbar-nav">
 
            <Link to={`/home`}><a className="nav-item nav-link" href="/home">Home</a></Link> 
-           <Link to={`/logOut`}> <a className="nav-item nav-link" href="/logOut">Logout</a></Link> 
+           <Link to={`/profile`}><a className="nav-item nav-link" href="/profile">Profile</a></Link> 
+           <Link onClick={Auth.logout}  to={`/`}> <a className="nav-item nav-link" href="/">Logout</a></Link> 
           
             </div>
         {/* </div> */}
