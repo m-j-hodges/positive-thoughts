@@ -6,18 +6,8 @@ import SignUp from './pages/signUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import thoughtsPage from './pages/thoughtsPage';
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  gql
-} from "@apollo/client";
 
 
-const client = new ApolloClient({
-  uri: `https://positive-thoughts-9-28-2022.herokuapp.com/`,
-  cache: new InMemoryCache(),
-});
 
 function App() {
 
@@ -38,7 +28,7 @@ function App() {
 // }
 
     return (
-      <ApolloProvider client={client}>
+      
             
       <Router>
        
@@ -65,7 +55,6 @@ function App() {
 
    </Router>
     
-      </ApolloProvider>
     );
   }
 
