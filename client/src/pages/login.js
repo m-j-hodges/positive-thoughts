@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import image from '../images/PositiveThoughts.bmp'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/loginPage.css';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/loginMutation';
@@ -91,7 +91,7 @@ console.log("hi");
             <input name='password' onChange={handleInputChange} label='password' id='typePassword' type='password' />
 
             <button className="mb-4 w-100">Sign in</button>
-            <button className="mb-4 w-100" href="/signUp">Sign up</button>
+          <Link to="/signUp"><button className="mb-4 w-100">Sign up</button></Link>  
                 </form>         
 
           </div>
