@@ -24,6 +24,7 @@ function SignUp() {
 const [userFormData, setUserFormData] = useState({
   firstName: '',
   lastName: '',
+  username: '',
   email: '',
   password: '',
 });
@@ -86,6 +87,7 @@ const handleFormSubmit = async (event) => {
                
                     <div className="col-4">
                       <input name="lastName"  className="form-control" onChange={handleInputChange} label='Lastname' id='form2' placeholder='Last Name' type='text'/>
+                      <input name="username"  className="form-control" onChange={handleInputChange} label='username' id='form3' placeholder='Username' type='text'/>
                     </div>
                   </div>
                     <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='email' id='typeEmail' type='email'/>

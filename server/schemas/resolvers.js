@@ -47,9 +47,9 @@ const resolvers = {
       return Thought.insertMany([data])
     },
     addUser: async (parent, { firstName, lastName, email, password, username }) => {
-      const newUser = await User.create({ firstName, lastName, email, password, username });
-      const token = signToken(newUser)
-      return { newUser, token }
+      const user = await User.create({ firstName, lastName, email, password, username });
+      const token = signToken(user)
+      return { user, token }
     },
     login: async (parent, { email, password }) => {
       // Look up the user by the provided email address. Since the `email` field is unique, we know that only one person will exist with that email
