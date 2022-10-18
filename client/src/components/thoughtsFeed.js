@@ -76,7 +76,7 @@ async function submitForm(eve) {
   const {data} = await addComment({
     variables: {formData}
   })
-  // window.location.reload()
+  window.location.reload()
 
 }
 
