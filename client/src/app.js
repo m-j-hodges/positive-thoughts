@@ -13,56 +13,56 @@ import {
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
   cache: new InMemoryCache(),
 });
 
 function App() {
 
-  // let Component
-  // // eslint-disable-next-line default-case
-  // switch (window.location.pathname) {
-  //   case "/":
-  //     Component = <Login />
-  //     break
-  //     case "/signUp":
-  //     Component = <SignUp />
-  //     break
-  //     case "/home":
-  //     Component = <Home />
-  //     break
-  //     case "/profile":
-  //     Component = <Profile />
-  //     break
-  // }
+//    let Component
+//    switch (window.location.pathname) {
+//      case "/":
+//        Component = <Login />
+//        break
+//        case "/signUp":
+//        Component = <SignUp />
+//        break
+//        case "/home":
+//        Component = <Home />
+//        break
+//        case "/profile":
+//        Component = <Profile />
+//        break
+// }
 
     return (
       <ApolloProvider client={client}>
-              
-       <Router>
+            
+      <Router>
        
-          <div className="container">
-            <Routes>
-              <Route 
-                path="/" 
-                element={<Login />} 
-              />
-              <Route 
-                path="/home" 
-                element={<Home />} 
-              />
-              <Route 
-                path="/signUp" 
-                element={<SignUp />} 
-              />
-              <Route 
-                path="/profile" 
-                element={<Profile />} 
-              />
-            </Routes>
-          </div>
-  
-      </Router>
+       <div className="container">
+         <Routes>
+           <Route 
+             path="/" 
+             element={<Login />} 
+           />
+           <Route 
+             path="/home" 
+             element={<Home />} 
+           />
+           <Route 
+             path="/signUp" 
+             element={<SignUp />} 
+           />
+           <Route 
+             path="/profile" 
+             element={<Profile />} 
+           />
+         </Routes>
+       </div>
+
+   </Router>
+    
       </ApolloProvider>
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+
 import Thoughts from '../components/thoughtsFeed'
 import {useQuery} from '@apollo/client'
 import {QUERY_THOUGHTS} from '../utils/queryThoughts'
@@ -9,7 +10,6 @@ import {QUERY_THOUGHTS} from '../utils/queryThoughts'
 const Home = () => {
   
 const {loading, data} = useQuery(QUERY_THOUGHTS)
-
 
 
 const thoughtsFeed = data?.thoughts || [];
