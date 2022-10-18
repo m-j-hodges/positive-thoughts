@@ -78,7 +78,7 @@ const resolvers = {
     addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
     
     return Thought.findOneAndUpdate({_id:thoughtId}, {
-          $addToSet: {comments: {commentText, commentAuthor: commentor}},
+          $addToSet: {comments: {commentText, commentor}},
         },
         {new: true, runValidators: true,}
         )
