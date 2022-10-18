@@ -86,12 +86,11 @@ const resolvers = {
     addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
     
     return Thought.findOneAndUpdate({_id:thoughtId}, {
-          $addToSet: {comments: {commentText, commentor, commentAuthor: commentor}},
+          $addToSet: {comments: {commentText, commentAuthor: commentor}},
         },
         {new: true, runValidators: true,}
         )
-      }
-    },
+      },
     removeComment: async (parent, {thoughtId, commentId}, context) => {
      const findComment = await Thought.findOneAndUpdate({_id: thoughtId}, {
       $pull: { comments: {_id: commentId}}
@@ -100,8 +99,6 @@ const resolvers = {
      })
      return findComment
       }
-
-
     ,
 
     addSkill: async (parent, { profileId, skill }, context) => {
@@ -139,6 +136,6 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in!');
     },
   },
-};
+}
 
 module.exports = resolvers;
