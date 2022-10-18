@@ -1,21 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Axios from 'axios'
 // import ReactDOM from 'react-dom';
-import { useState, useEffect } from 'react'
 import "./ThoughtsCss.css"
-import {QUERY_COMMENTS} from  '../utils/queries'
 import $ from 'jquery'
 import { STORE_THOUGHT} from '../utils/storeThoughts'
 import {useMutation} from '@apollo/client'
-import { ADD_PROFILE } from '../utils/mutations'
 import {STORE_COMMENT} from '../utils/storeComment'
 
 
 
 let divArray
 function Thoughts({thoughts}) {
-
-  console.log(thoughts)
+console.log(thoughts)
   const [submitBtn, setSubmit] = useState('submit')
   const [storeText, setText] = useState('')
   const [storeUser, setUser] = useState('')
@@ -76,7 +72,7 @@ async function submitForm(eve) {
   const {data} = await addComment({
     variables: {formData}
   })
-  window.location.reload()
+  // window.location.reload()
 
 }
 
