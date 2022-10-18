@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import image from '../images/PositiveThoughts.bmp'
-import {
-  MDBBtn,
-  MDBTypography,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-  MDBCheckbox,
-}
-from 'mdb-react-ui-kit';
+// import {
+//   MDBBtn,
+//   MDBTypography,
+//   MDBContainer,
+//   MDBCard,
+//   MDBCardBody,
+//   MDBCardImage,
+//   MDBRow,
+//   MDBCol,
+//   MDBInput,
+//   MDBCheckbox,
+// }
+// from 'mdb-react-ui-kit';
 import '../styles/loginPage.css';
 import {useMutation} from '@apollo/client'
 import { LOGIN } from '../utils/loginMutation'
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 
 export default function Login() {
@@ -49,7 +49,7 @@ export default function Login() {
         });
   
         console.log(data);
-        // Auth.login(data.login.token);
+        Auth.login(data.login.token);
       } catch (e) {
         console.error(e);
       }
@@ -69,40 +69,33 @@ export default function Login() {
 
    return (
     
-    <MDBContainer className='my-5'>
-       <MDBCard className='square border border-primary border-3 rounded-6'>
+    <div className='my-5'>
+       
       
-        <MDBRow className='g-0 d-flex align-items-center'>
+        <div className='card row '>
         
-          <MDBCol md='5'>
-            <MDBCardImage src={image}  className='rounded-t-5 rounded-tr-lg-0' fluid />
-          </MDBCol>
+          <div className="col" md='5'>
+            <img src={image} alt={"login"}  width={250}
+              height={250}  className=''/>
+          </div>
 
-          <MDBCol md='6'>
-          <MDBTypography className='text-center h1'>Positive Thoughts</MDBTypography>
-            <MDBCardBody>
+          <div className="card-body" md='6'>
+          <h5 className='text-center h1'>Positive Thoughts</h5>
+           
                 <form onSubmit={handleFormSubmit}>
                   
-              <MDBInput name='email' onChange={handleInputChange} className='col-xs-2' wrapperClass='mb-4' label='email address' id='typeEmail' type='email'/>
-              <MDBInput name='password'  onChange={handleInputChange} wrapperClass='mb-4' label='password' id='typePassword' type='password'/>
-              
-              <div className="d-flex justify-content-between mx-4 mb-4">
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-                <a href="!#">Forgot password?</a>
-              </div>
+              <input name='email' onChange={handleInputChange} className='col-xs-2'  label='email address' id='typeEmail' type='email'/>
+              <input name='password'  onChange={handleInputChange}  label='password' id='typePassword' type='password'/>
 
-              <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
-              <MDBBtn className="mb-4 w-100" href="/signUp">Sign up</MDBBtn>
+              <button className="mb-4 w-100">Sign in</button>
+              <button className="mb-4 w-100" href="/signUp">Sign up</button>
                 </form>         
-             
 
-            </MDBCardBody>
+          </div>
 
-          </MDBCol>
+        </div>
 
-        </MDBRow>
-
-      </MDBCard>
-    </MDBContainer>
+      </div>
+  
   );
 }
