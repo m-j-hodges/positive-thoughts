@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 function Navbar() {
   return (
 
@@ -11,8 +11,8 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
             <a className="nav-item nav-link active" href="/home">Home <span className="sr-only">(current)</span></a>
-            <a className="nav-item nav-link" href="/profile">Profile</a>
-            <a className="nav-item nav-link" href="/signUp">Sign Up</a>
+           <Link to={`/profile`}><a className="nav-item nav-link" href="/profile">Profile</a></Link> 
+           <Link to={`/signUp`}> <a className="nav-item nav-link" href="/signUp">Sign Up</a></Link> 
             <a className="nav-item nav-link" href="/">Login</a>
             </div>
         </div>
