@@ -20,11 +20,13 @@ type Comment {
   commentText: String
   commentor: ID
   createdAt: String
+  commentAuthor: String
 }
 type Thought {
   _id: ID
   author: String
   text: String
+  commentAuthor: String
   comments: [Comment]
 }
 
@@ -47,6 +49,7 @@ type Thought {
     addThoughts(author: String!, text: String!) : [Thought]
     addThought(author: String!, text: String!): Thought
     addComment(thoughtId: String!, commentText: String!, commentor: String!): Thought
+    removeComment(thoughtId: String, commentId: String!) : Thought
   }
 
 

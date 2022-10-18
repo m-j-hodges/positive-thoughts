@@ -2,7 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const Comment = require('../models/comments');
 const Thought = require('../models/thoughts');
 const { signToken } = require('../utils/auth');
-const Profile = require('../models/profile')
+const Profile = require('../models/profile');
 
 const resolvers = {
   Query: {
@@ -32,7 +32,26 @@ const resolvers = {
       return Thought.findOne({_id: thoughtId })
     },
     thoughts: async () => {
-      return Thought.find().populate('comments')
+    const thoughtResult = await Thought.find().populate('comments')
+    return thoughtResult
+    let newCommentAuthor 
+    const newResult = thoughtResult.map( async(item) => {
+    if(item.comments.length !== 0) {
+    const newComments = await item.comments.map(async(oneComment) => {
+      console.log(oneComment)
+        const findUser = await Profile.findOne({profileId: oneComment.commentor})
+        newCommentAuthor = findUser.username
+        return oneComment
+      })
+      item.commentAuthor = newCommentAuthor
+      return item
+    }
+      return item
+    }
+    )
+
+    return newResult
+
     }
   },
   Mutation: {
@@ -65,17 +84,25 @@ const resolvers = {
       return { token, profile };
     },
     addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
-      const findUser = Profile.findOne({username: commentor})
-      const UserId = findUser._id
-      return Thought.findOneAndUpdate(
-        {_id: thoughtId},
-        {
-          $addToSet: {comments: {commentText, commentor}}
+    
+    return Thought.findOneAndUpdate({_id:thoughtId}, {
+          $addToSet: {comments: {commentText, commentor, commentAuthor: commentor}},
         },
-        {new: true,
-        runValidators: true},
-      )
+        {new: true, runValidators: true,}
+        )
+      }
     },
+    removeComment: async (parent, {thoughtId, commentId}, context) => {
+     const findComment = await Thought.findOneAndUpdate({_id: thoughtId}, {
+      $pull: { comments: {_id: commentId}}
+     }, {new: true}, (err, result) => {
+      if(err) {console.log(err)}
+     })
+     return findComment
+      }
+
+
+    ,
 
     addSkill: async (parent, { profileId, skill }, context) => {
         if (context.user) {

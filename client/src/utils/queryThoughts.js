@@ -11,6 +11,7 @@ query Query {
     comments {
       commentText
       commentor
+      commentAuthor
     }
   }
 }`
