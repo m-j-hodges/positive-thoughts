@@ -24,7 +24,21 @@ const [newFact, setFact] = useState('')
 let cardString = []
 
 //fetches Thoughts
+const getStoreThoughts = localStorage.getItem("storedThoughts")
+if(thoughts && !getStoreThoughts ) {
+  const localStoreThoughts = JSON.stringify(thoughts)
+  localStorage.setItem("storedThoughts", localStoreThoughts)
+} else if (getStoreThoughts) {
+  thoughts = JSON.parse(getStoreThoughts)
+}
 
+
+setTimeout(clearLocalThoughts,1800000)
+
+function clearLocalThoughts() {
+  localStorage.removeItem('storedThoughts')
+
+}
 
 function collapseIt(event) {
   const {id} = event.target
@@ -68,9 +82,10 @@ async function submitForm(eve) {
   const splitId = id.split("_")
   const newThoughtId = splitId[1];
   const formData = {thoughtId: newThoughtId, commentText: storeText, commentor: storeUser}
-  const {data} = await addComment({
-    variables: {formData}
+  const {cData} = await addComment({
+    variables: formData
   })
+
   // window.location.reload()
 
 }
@@ -85,7 +100,7 @@ function showComment(e) {
 }
 
     return (
-      <div>
+      <div className="align-items-center">
       {thoughts && thoughts.map((item) => (
         <div className="card my-4" id={item._id}>
         <div className="card-header">
@@ -111,8 +126,15 @@ function showComment(e) {
         {item.comments.map((eachItem) => (
           eachItem ? (
           <div>
-          <p> Author: {eachItem.commentAuthor}</p>
+          <p> Author: {eachItem.commentor}</p>
           <p> Comment: {eachItem.commentText}</p>
+          <div class="icon-trash" style="float: left">
+    <div class="trash-lid" style="background-color: #2CC3B5"></div>
+    <div class="trash-container" style="background-color: #2CC3B5"></div>
+    <div class="trash-line-1"></div>
+    <div class="trash-line-2"></div>
+    <div class="trash-line-3"></div>
+  </div>
           </div> ) : <div> No comments yet... </div> 
         ))}
       </div>

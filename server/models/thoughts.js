@@ -17,11 +17,9 @@ const thoughtsSchema = mongoose.Schema({
         default: Date.now,
     },
     commentor: {
-      type: Schema.Types.ObjectId,
-      ref: 'Profile'
-    },
-    commentAuthor: {type:String},
-  }
+      type: String
+  },
+}
   ]
 })
 

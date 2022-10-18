@@ -10,11 +10,12 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  gql
 } from "@apollo/client";
 
 
 const client = new ApolloClient({
-  uri: `http://localhost:3001/graphql`,
+  uri: `https://positive-thoughts-9-28-2022.herokuapp.com/`,
   cache: new InMemoryCache(),
 });
 
