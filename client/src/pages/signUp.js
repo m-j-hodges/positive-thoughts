@@ -14,20 +14,54 @@ import {
   MDBCol
 }
 from 'mdb-react-ui-kit';
+import { useMutation } from '@apollo/client';
+import {NEW_USER} from "../utils/createUser";
+import Auth from "../utils/auth"
 
 function SignUp() {
 
-const [firstNameInput, setFirstName] = useState('')
-const [lastNameInput, setLastName] = useState('')
-const [emailInput, setEmail] = useState('')
-const [passwordInput, setPassword] = useState('')
+// set initial form state
+const [userFormData, setUserFormData] = useState({
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+});
+
+const [addUser, { error }] = useMutation(NEW_USER);
 
 
-function createUser() {
-  
+const handleInputChange = (event) => {
+  const { name, value } = event.target;
+  setUserFormData({ ...userFormData, [name]: value });
+};
 
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
+
+  // check if form has everything (as per react-bootstrap docs)
+  const form = event.currentTarget;
+  if (form.checkValidity() === false) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  try {
+    const { data } = await addUser({
+      variables: { ...userFormData },
+    });
+    console.log(data);
+    Auth.login(data.addUser.token);
+  } catch (err) {
+    console.error(err);
+  }
+
+  setUserFormData({
+    username: '',
+    email: '',
+    password: '',
+  });
 }
-
   return (
     <MDBContainer fluid className='my-5'>
       <MDBRow className='g-0 align-items-center'>
@@ -40,23 +74,27 @@ function createUser() {
                 <MDBCol className='mr-5 mb-3' md='5' col='4'>
                   <MDBCardImage src={image}  className='w-0' fluid />
                 </MDBCol>
-                <MDBCol>    
+                <MDBCol>   
+                   <form onSubmit={handleFormSubmit}>
                   <h2 className="fw-bold mb-2">Sign up</h2>
-                  <h5 className='mb-5'>to receive inspiring quotes</h5>
+                  <h5 className='mb-5'>to receive inspiring quotes</h5>   
                   <div className='row'>
-                    <div className="col-4 d-block">
-                      {/* <label for="form1"> first name:</label> */}
-                      <input className="form-control" onChange={(e) => setFirstName(e.target.value)} label='First name' id='form1' type='text'/>
-
-                    </div>
                   
+                      {/* <label for="form1"> first name:</label> */}
+                     
+                    <input name="firstName" className="form-control" onChange={handleInputChange} label='Firstname' id='form1'placeholder='First Name' type='text'/>
+               
                     <div className="col-4">
-                      <input  className="form-control" onChange={(e) => setLastName(e.target.value)} label='Last name' id='form2' type='text'/>
+                      <input name="lastName"  className="form-control" onChange={handleInputChange} label='Lastname' id='form2' placeholder='Last Name' type='text'/>
                     </div>
                   </div>
-                    <MDBInput wrapperClass='mb-4' onChange={(e) => setEmail(e.target.value)} label='email' id='typeEmail' type='email'/>
-                    <MDBInput wrapperClass='mb-4' onChange={(e) => setPassword(e.target.value)} label='Password' id='typePassword' type='password'/>
-                    <MDBBtn className='w-100 mb-4' onClick={(e) => createUser} size='md'>Sign Up</MDBBtn>
+                    <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='email' id='typeEmail' type='email'/>
+                    <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
+                    <MDBBtn className='w-100 mb-4'  size='md'>Sign Up</MDBBtn>
+                        
+                      </form>
+                    
+                      
                 </MDBCol>
               </MDBRow>
 
