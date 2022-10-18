@@ -11,9 +11,11 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
             <a className="nav-item nav-link active" href="/home">Home <span className="sr-only">(current)</span></a>
+            
            <Link to={`/profile`}><a className="nav-item nav-link" href="/profile">Profile</a></Link> 
            <Link to={`/signUp`}> <a className="nav-item nav-link" href="/signUp">Sign Up</a></Link> 
             <a className="nav-item nav-link" href="/">Login</a>
+            {/* <Link to={`/logOut`}> <a className="nav-item nav-link" href="/logOut">Log out</a></Link>  */}
             </div>
         </div>
     </nav>
