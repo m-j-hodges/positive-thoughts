@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../styles/signUp.css';
 import image from '../images/shutterstock_299372690.jpg'
+
 import {
   MDBBtn,
   MDBContainer,
@@ -14,7 +15,19 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-function signUp() {
+function SignUp() {
+
+const [firstNameInput, setFirstName] = useState('')
+const [lastNameInput, setLastName] = useState('')
+const [emailInput, setEmail] = useState('')
+const [passwordInput, setPassword] = useState('')
+
+
+function createUser() {
+  
+
+}
+
   return (
     <MDBContainer fluid className='my-5'>
       <MDBRow className='g-0 align-items-center'>
@@ -30,18 +43,20 @@ function signUp() {
                 <MDBCol>    
                   <h2 className="fw-bold mb-2">Sign up</h2>
                   <h5 className='mb-5'>to receive inspiring quotes</h5>
-                  <MDBRow>
-                    <MDBCol col='4'>
-                      <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text'/>
-                    </MDBCol>
+                  <div className='row'>
+                    <div className="col-4 d-block">
+                      <label for="form1"> first name:</label>
+                      <input className="form-control" wrapperClass='mb-4' onChange={(e) => setFirstName(e.target.value)} label='First name' id='form1' type='text'/>
+
+                    </div>
                   
-                    <MDBCol col='4'>
-                      <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text'/>
-                    </MDBCol>
-                  </MDBRow>
-                    <MDBInput wrapperClass='mb-4' label='email' id='typeEmail' type='email'/>
-                    <MDBInput wrapperClass='mb-4' label='Password' id='typePassword' type='password'/>
-                    <MDBBtn className='w-100 mb-4' size='md'>Sign Up</MDBBtn>
+                    <div className="col-4">
+                      <input wrapperClass='mb-4' className="form-control" onChange={(e) => setLastName(e.target.value)} label='Last name' id='form2' type='text'/>
+                    </div>
+                  </div>
+                    <MDBInput wrapperClass='mb-4' onChange={(e) => setEmail(e.target.value)} label='email' id='typeEmail' type='email'/>
+                    <MDBInput wrapperClass='mb-4' onChange={(e) => setPassword(e.target.value)} label='Password' id='typePassword' type='password'/>
+                    <MDBBtn className='w-100 mb-4' onClick={(e) => createUser} size='md'>Sign Up</MDBBtn>
                 </MDBCol>
               </MDBRow>
 
@@ -75,5 +90,5 @@ function signUp() {
   );
 }
 
-export default signUp
+export default SignUp
 
