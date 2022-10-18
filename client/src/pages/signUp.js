@@ -16,7 +16,7 @@ import {
 from 'mdb-react-ui-kit';
 import { useMutation } from '@apollo/client';
 import {NEW_USER} from "../utils/createUser";
-import Auth from "../utils/auth"
+import Auth from "../utils/auth";
 
 function SignUp() {
 
