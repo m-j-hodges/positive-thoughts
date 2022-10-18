@@ -39,7 +39,6 @@ async function querySave(e) {
     console.log(res)
     console.log(res.data)
     divArray = res.data
-    divArray.length = 20
     // saveQuotes =localStorage.setItem('quotes', JSON.stringify(divArray))
   
 
