@@ -3,6 +3,7 @@ const Comment = require('../models/comments');
 const Thought = require('../models/thoughts');
 const { signToken } = require('../utils/auth');
 const Profile = require('../models/profile');
+
 const User = require('../models/users');
 
 
@@ -34,7 +35,26 @@ const resolvers = {
       return Thought.findOne({ _id: thoughtId })
     },
     thoughts: async () => {
-      return Thought.find().populate('comments')
+    const thoughtResult = await Thought.find().populate('comments')
+    return thoughtResult
+    let newCommentAuthor 
+    const newResult = thoughtResult.map( async(item) => {
+    if(item.comments.length !== 0) {
+    const newComments = await item.comments.map(async(oneComment) => {
+      console.log(oneComment)
+        const findUser = await Profile.findOne({profileId: oneComment.commentor})
+        newCommentAuthor = findUser.username
+        return oneComment
+      })
+      item.commentAuthor = newCommentAuthor
+      return item
+    }
+      return item
+    }
+    )
+
+    return newResult
+
     }
   },
   Mutation: {
@@ -80,6 +100,25 @@ const resolvers = {
       return { token, user };
     },
 
+    addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
+    
+    return Thought.findOneAndUpdate({_id:thoughtId}, {
+          $addToSet: {comments: {commentText, commentAuthor: commentor}},
+        },
+        {new: true, runValidators: true,}
+        )
+      },
+    removeComment: async (parent, {thoughtId, commentId}, context) => {
+     const findComment = await Thought.findOneAndUpdate({_id: thoughtId}, {
+      $pull: { comments: {_id: commentId}}
+     }, {new: true}, (err, result) => {
+      if(err) {console.log(err)}
+     })
+     return findComment
+      }
+    ,
+
+
     // login: async (parent, { email, password }) => {
     //   const profile = await Profile.findOne({ email });
 
@@ -113,6 +152,7 @@ const resolvers = {
       )
     },
 
+
     // If user attempts to execute this mutation and isn't logged in, throw an error
     //   throw new AuthenticationError('You need to be logged in!');
     // },
@@ -125,6 +165,6 @@ const resolvers = {
     },
     // Make it so a logged in user can only remove a skill from their own profile
   },
-};
+}
 
 module.exports = resolvers;

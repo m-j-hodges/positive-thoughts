@@ -14,6 +14,8 @@ import {STORE_COMMENT} from '../utils/storeComment'
 
 let divArray
 function Thoughts({thoughts}) {
+
+  console.log(thoughts)
   const [submitBtn, setSubmit] = useState('submit')
   const [storeText, setText] = useState('')
   const [storeUser, setUser] = useState('')
@@ -114,7 +116,7 @@ function showComment(e) {
         {item.comments.map((eachItem) => (
           eachItem ? (
           <div>
-          <p> Author: {eachItem.commentor}</p>
+          <p> Author: {eachItem.commentAuthor}</p>
           <p> Comment: {eachItem.commentText}</p>
           </div> ) : <div> No comments yet... </div> 
         ))}
