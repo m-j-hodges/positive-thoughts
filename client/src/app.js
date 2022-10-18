@@ -4,20 +4,35 @@ import Profile from './pages/profilePage';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
 // import thoughtsPage from './pages/thoughtsPage';
-
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  createHttpLink,
   gql
 } from "@apollo/client";
 
+const httpLink = createHttpLink({
+  uri:'/graphql',
+})
+
+const authLink = setContext((_, {headers}) => {
+
+  const token = localStorage.getItem('id_token')
+  return {
+    headers: {
+      ...headers, authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const client = new ApolloClient({
-  uri: `https://positive-thoughts-9-28-2022.herokuapp.com/`,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+
 
 function App() {
 
@@ -38,8 +53,8 @@ function App() {
 // }
 
     return (
-      <ApolloProvider client={client}>
-            
+      
+<ApolloProvider client={client}>
       <Router>
        
        <div className="container">
@@ -64,8 +79,7 @@ function App() {
        </div>
 
    </Router>
-    
-      </ApolloProvider>
+    </ApolloProvider>
     );
   }
 
