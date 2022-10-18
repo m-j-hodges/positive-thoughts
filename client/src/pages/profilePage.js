@@ -23,14 +23,14 @@ function profilePage() {
 <Navbar />
     
     
-  <MDBContainer fluid className='my-5'>
+  <MDBContainer className='my-5'>
     <MDBRow className='g-2 align-items-center'>
       <MDBCol size='lg' col='4' className='align-items-center'>
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5'> 
             <MDBRow>
               <h5 className='mb-5 text-'>Profile Information</h5>
-              <MDBCol classname='' col='3'>
+              <MDBCol className='' col='3'>
                 <img src='https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png' className='img-fluid w-100' alt='' fluid/>
                 <br></br>
                 <MDBBtn className='w-80 mb-4' size='md'>Change profile picture</MDBBtn>

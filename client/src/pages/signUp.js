@@ -45,13 +45,13 @@ function createUser() {
                   <h5 className='mb-5'>to receive inspiring quotes</h5>
                   <div className='row'>
                     <div className="col-4 d-block">
-                      <label for="form1"> first name:</label>
-                      <input className="form-control" wrapperClass='mb-4' onChange={(e) => setFirstName(e.target.value)} label='First name' id='form1' type='text'/>
+                      {/* <label for="form1"> first name:</label> */}
+                      <input className="form-control" onChange={(e) => setFirstName(e.target.value)} label='First name' id='form1' type='text'/>
 
                     </div>
                   
                     <div className="col-4">
-                      <input wrapperClass='mb-4' className="form-control" onChange={(e) => setLastName(e.target.value)} label='Last name' id='form2' type='text'/>
+                      <input  className="form-control" onChange={(e) => setLastName(e.target.value)} label='Last name' id='form2' type='text'/>
                     </div>
                   </div>
                     <MDBInput wrapperClass='mb-4' onChange={(e) => setEmail(e.target.value)} label='email' id='typeEmail' type='email'/>
