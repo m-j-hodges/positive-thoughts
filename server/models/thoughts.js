@@ -20,6 +20,7 @@ const thoughtsSchema = mongoose.Schema({
       type: Schema.Types.ObjectId,
       ref: 'Profile'
     },
+    commentAuthor: {type:String},
   }
   ]
 })

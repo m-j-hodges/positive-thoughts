@@ -1,6 +1,6 @@
 const thoughts = require('./thoughts');
-const users = require('./users')
-const comments = require('./comments')
+const User = require('./users')
+const Comment = require('./comments')
 const Profile = require('./profile')
 
-module.exports = { thoughts, users, comments, Profile }
+module.exports = {thoughts, User, Comment, Profile}

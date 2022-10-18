@@ -3,22 +3,23 @@ const Comment = require('../models/comments');
 const Thought = require('../models/thoughts');
 const { signToken } = require('../utils/auth');
 const Profile = require('../models/profile');
+
 const User = require('../models/users');
 
 
 const resolvers = {
   Query: {
-    profiles: async () => {
-      return Profile.find();
+    users: async () => {
+      return User.find();
     },
 
-    profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+    user: async (parent, { profileId }) => {
+      return User.findOne({ _id: profileId });
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -34,7 +35,8 @@ const resolvers = {
       return Thought.findOne({ _id: thoughtId })
     },
     thoughts: async () => {
-      return Thought.find().populate('comments')
+    return Thought.find().populate('comments')
+  
     }
   },
   Mutation: {
@@ -44,17 +46,10 @@ const resolvers = {
     addThoughts: async (parent, [data]) => {
       return Thought.insertMany([data])
     },
-
-    addProfile: async (parent, { firstName, lastName, email, password, username }) => {
-      const profile = await Profile.create({ firstName, lastName, email, password, username });
-      const token = signToken(profile);
-
-      return { token, profile };
-    },
     addUser: async (parent, { firstName, lastName, email, password, username }) => {
       const newUser = await User.create({ firstName, lastName, email, password, username });
-   
-      return { newUser}
+      const token = signToken(newUser)
+      return { newUser, token }
     },
     login: async (parent, { email, password }) => {
       // Look up the user by the provided email address. Since the `email` field is unique, we know that only one person will exist with that email
@@ -79,6 +74,25 @@ const resolvers = {
       // Return an `Auth` object that consists of the signed token and user's information
       return { token, user };
     },
+
+    addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
+    
+    return Thought.findOneAndUpdate({_id:thoughtId}, {
+          $addToSet: {comments: {commentText, commentAuthor: commentor}},
+        },
+        {new: true, runValidators: true,}
+        )
+      },
+    removeComment: async (parent, {thoughtId, commentId}, context) => {
+     const findComment = await Thought.findOneAndUpdate({_id: thoughtId}, {
+      $pull: { comments: {_id: commentId}}
+     }, {new: true}, (err, result) => {
+      if(err) {console.log(err)}
+     })
+     return findComment
+      }
+    ,
+
 
     // login: async (parent, { email, password }) => {
     //   const profile = await Profile.findOne({ email });
@@ -113,18 +127,13 @@ const resolvers = {
       )
     },
 
+
     // If user attempts to execute this mutation and isn't logged in, throw an error
     //   throw new AuthenticationError('You need to be logged in!');
     // },
     // Set up mutation so a logged in user can only remove their profile and no one else's
-    removeProfile: async (parent, args, context) => {
-      if (context.user) {
-        return Profile.findOneAndDelete({ _id: context.user._id });
-      }
-      throw new AuthenticationError('You need to be logged in!')
-    },
     // Make it so a logged in user can only remove a skill from their own profile
   },
-};
+}
 
 module.exports = resolvers;

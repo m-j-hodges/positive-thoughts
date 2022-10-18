@@ -8,6 +8,7 @@ const commentsSchema = mongoose.Schema({
     ref: 'User'
   },
   createdAt: {type: Date, default: Date.now},
+  commentAuthor: {type: String}
 })
 
 const Comment = mongoose.model('Comment', commentsSchema)
