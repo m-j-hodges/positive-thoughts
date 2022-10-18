@@ -9,17 +9,17 @@ const User = require('../models/users');
 
 const resolvers = {
   Query: {
-    profiles: async () => {
-      return Profile.find();
+    users: async () => {
+      return User.find();
     },
 
-    profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+    user: async (parent, { profileId }) => {
+      return User.findOne({ _id: profileId });
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -35,26 +35,8 @@ const resolvers = {
       return Thought.findOne({ _id: thoughtId })
     },
     thoughts: async () => {
-    const thoughtResult = await Thought.find().populate('comments')
-    return thoughtResult
-    let newCommentAuthor 
-    const newResult = thoughtResult.map( async(item) => {
-    if(item.comments.length !== 0) {
-    const newComments = await item.comments.map(async(oneComment) => {
-      console.log(oneComment)
-        const findUser = await Profile.findOne({profileId: oneComment.commentor})
-        newCommentAuthor = findUser.username
-        return oneComment
-      })
-      item.commentAuthor = newCommentAuthor
-      return item
-    }
-      return item
-    }
-    )
-
-    return newResult
-
+    return Thought.find().populate('comments')
+  
     }
   },
   Mutation: {
@@ -64,17 +46,10 @@ const resolvers = {
     addThoughts: async (parent, [data]) => {
       return Thought.insertMany([data])
     },
-
-    addProfile: async (parent, { firstName, lastName, email, password, username }) => {
-      const profile = await Profile.create({ firstName, lastName, email, password, username });
-      const token = signToken(profile);
-
-      return { token, profile };
-    },
     addUser: async (parent, { firstName, lastName, email, password, username }) => {
       const newUser = await User.create({ firstName, lastName, email, password, username });
-   
-      return { newUser}
+      const token = signToken(newUser)
+      return { newUser, token }
     },
     login: async (parent, { email, password }) => {
       // Look up the user by the provided email address. Since the `email` field is unique, we know that only one person will exist with that email
@@ -157,12 +132,6 @@ const resolvers = {
     //   throw new AuthenticationError('You need to be logged in!');
     // },
     // Set up mutation so a logged in user can only remove their profile and no one else's
-    removeProfile: async (parent, args, context) => {
-      if (context.user) {
-        return Profile.findOneAndDelete({ _id: context.user._id });
-      }
-      throw new AuthenticationError('You need to be logged in!')
-    },
     // Make it so a logged in user can only remove a skill from their own profile
   },
 }
