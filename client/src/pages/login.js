@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import image from '../images/PositiveThoughts.bmp'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/loginPage.css';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/loginMutation';
@@ -25,12 +25,13 @@ import Auth from '../utils/auth';
 const Login = (props) => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN);
-
+  let navigate = useNavigate();
 
 
   const handleInputChange = (event) => {
   
     const { name, value } = event.target;
+  
 
     setUserFormData({
       ...userFormData,
@@ -55,6 +56,7 @@ console.log("hi");
 
       console.log(data);
       Auth.login(data.login.token);
+      navigate(`/home`);
     } catch (e) {
       console.error(e);
     }
@@ -87,18 +89,8 @@ console.log("hi");
 
             <input name='email' onChange={handleInputChange} className='col-xs-2' label='email address' id='typeEmail' type='email' />
             <input name='password' onChange={handleInputChange} label='password' id='typePassword' type='password' />
-            {Auth.loggedIn() ? (
-                <>
-                  <Link to='/home'>
-                  <button className="mb-4 w-100">Sign in</button>
-                  </Link>
-                </>
-              ) : (
-                <Link to='/'>
-                <button className="mb-4 w-100">Sign in</button>
-                </Link>
-              )}
-            
+
+            <button className="mb-4 w-100">Sign in</button>
             <button className="mb-4 w-100" href="/signUp">Sign up</button>
                 </form>         
 
