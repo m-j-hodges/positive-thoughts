@@ -17,6 +17,7 @@ from 'mdb-react-ui-kit';
 import { useMutation } from '@apollo/client';
 import {NEW_USER} from "../utils/createUser";
 import Auth from "../utils/auth";
+import { useNavigate, Link } from 'react-router-dom';
 
 function SignUp() {
 
@@ -31,7 +32,7 @@ const [userFormData, setUserFormData] = useState({
 });
 
 const [addUser, { error }] = useMutation(NEW_USER);
-
+let navigate = useNavigate();
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
@@ -54,6 +55,7 @@ const handleFormSubmit = async (event) => {
     }
     console.log(data);
     Auth.login(data.addUser.token);
+    navigate(`/home`);
   } catch (err) {
     console.error(err);
   }
@@ -95,6 +97,9 @@ const handleFormSubmit = async (event) => {
                     <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email'/>
                     <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
                     <MDBBtn className='w-100 mb-4'  size='lg'>Sign Up</MDBBtn>
+         
+                    <h6 className="mb-4">Have an account?</h6>
+                    <Link to="/"><MDBBtn className="mb-4 w-100" size='md'>Login</MDBBtn></Link>  
                     <div className={successNote}>&#128077;</div> 
                         
                   </form>
