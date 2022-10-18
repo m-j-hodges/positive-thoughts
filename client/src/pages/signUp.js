@@ -42,10 +42,7 @@ const handleFormSubmit = async (event) => {
 
   // check if form has everything (as per react-bootstrap docs)
   const form = event.currentTarget;
-  if (form.checkValidity() === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
+ 
 
   try {
     const { data } = await addUser({
@@ -58,6 +55,8 @@ const handleFormSubmit = async (event) => {
   }
 
   setUserFormData({
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     password: '',
@@ -82,10 +81,10 @@ const handleFormSubmit = async (event) => {
                       {/* <label for="form1"> first name:</label> */}
                   <MDBRow>
                     <MDBCol className='col-6'>
-                      <MDBInput name='First Name' wrapperClass='mb-4' onChange={handleInputChange} label='First Name' id='form1' type='text'/>
+                      <MDBInput name='firstName' wrapperClass='mb-4' onChange={handleInputChange} label='First Name' id='form1' type='text'/>
                     </MDBCol> 
                     <MDBCol className='col-6'>
-                      <MDBInput name='Last Name' wrapperClass='mb-4' onChange={handleInputChange} label='Last Name' id='form1' type='text'/>
+                      <MDBInput name='lastName' wrapperClass='mb-4' onChange={handleInputChange} label='Last Name' id='form2' type='text'/>
                     </MDBCol>
                   </MDBRow>
                     <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/>
