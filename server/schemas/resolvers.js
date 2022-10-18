@@ -4,6 +4,9 @@ const Thought = require('../models/thoughts');
 const { signToken } = require('../utils/auth');
 const Profile = require('../models/profile');
 
+const User = require('../models/users');
+
+
 const resolvers = {
   Query: {
     profiles: async () => {
@@ -15,21 +18,21 @@ const resolvers = {
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
-        if (context.user) {
-          return Profile.findOne({ _id: context.user._id });
-        }
-        throw new AuthenticationError('You need to be logged in!');
+      if (context.user) {
+        return Profile.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
     comments: async () => {
-        return Comment.find();
+      return Comment.find();
     },
     comment: async (parent, args, context) => {
-      if(context.user) {
-        return Comment.findOne({_id: context.comment._id});
+      if (context.user) {
+        return Comment.findOne({ _id: context.comment._id });
       }
     },
-    thought: async (parent, {thoughtId}) => {
-      return Thought.findOne({_id: thoughtId })
+    thought: async (parent, { thoughtId }) => {
+      return Thought.findOne({ _id: thoughtId })
     },
     thoughts: async () => {
     const thoughtResult = await Thought.find().populate('comments')
@@ -55,34 +58,48 @@ const resolvers = {
     }
   },
   Mutation: {
-    addThought: async (parent, { text, author}) => {
-      return Thought.create({ author, text});
+    addThought: async (parent, { text, author }) => {
+      return Thought.create({ author, text });
     },
     addThoughts: async (parent, [data]) => {
       return Thought.insertMany([data])
     },
-    addProfile: async (parent, { name, email, password, username }) => {
-      const profile = await Profile.create({ name, email, password, username });
+
+    addProfile: async (parent, { firstName, lastName, email, password, username }) => {
+      const profile = await Profile.create({ firstName, lastName, email, password, username });
       const token = signToken(profile);
 
       return { token, profile };
+    },
+    addUser: async (parent, { firstName, lastName, email, password, username }) => {
+      const newUser = await User.create({ firstName, lastName, email, password, username });
+   
+      return { newUser}
     },
     login: async (parent, { email, password }) => {
-      const profile = await Profile.findOne({ email });
+      // Look up the user by the provided email address. Since the `email` field is unique, we know that only one person will exist with that email
+      const user = await User.findOne({ email });
 
-      if (!profile) {
-        throw new AuthenticationError('No profile with this email found!');
+      // If there is no user with that email address, return an Authentication error stating so
+      if (!user) {
+        throw new AuthenticationError('No user found with this email address');
       }
+      
+      // If there is a user found, execute the `isCorrectPassword` instance method and check if the correct password was provided
+      const correctPw = await user.isCorrectPassword(password);
 
-      const correctPw = await profile.isCorrectPassword(password);
-
+      // If the password is incorrect, return an Authentication error stating so
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect password!');
+        throw new AuthenticationError('Incorrect credentials');
       }
 
-      const token = signToken(profile);
-      return { token, profile };
+      // If email and password are correct, sign user into the application with a JWT
+      const token = signToken(user);
+
+      // Return an `Auth` object that consists of the signed token and user's information
+      return { token, user };
     },
+
     addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
     
     return Thought.findOneAndUpdate({_id:thoughtId}, {
@@ -101,40 +118,52 @@ const resolvers = {
       }
     ,
 
-    addSkill: async (parent, { profileId, skill }, context) => {
-        if (context.user) {
-      return Profile.findOneAndUpdate(
-        { _id: profileId },
+
+    // login: async (parent, { email, password }) => {
+    //   const profile = await Profile.findOne({ email });
+
+    //   if (!profile) {
+    //     throw new AuthenticationError('No profile with this email found!');
+    //   }
+
+    //   const correctPw = await profile.isCorrectPassword(password);
+
+    //   if (!correctPw) {
+    //     throw new AuthenticationError('Incorrect password!');
+    //   }
+
+    //   const token = signToken(profile);
+    //   return { token, profile };
+    // },
+
+
+    addComment: async (parent, { thoughtId, commentor, commentText }, context) => {
+      const findUser = Profile.findOne({ username: commentor })
+      const UserId = findUser._id
+      return Thought.findOneAndUpdate(
+        { _id: thoughtId },
         {
-          $addToSet: { skills: skill },
+          $addToSet: { comments: { commentText, commentor } }
         },
         {
           new: true,
-          runValidators: true,
-        }
-      );
-    }
-      // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw new AuthenticationError('You need to be logged in!');
-},
-// Set up mutation so a logged in user can only remove their profile and no one else's
+          runValidators: true
+        },
+      )
+    },
+
+
+    // If user attempts to execute this mutation and isn't logged in, throw an error
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
+    // Set up mutation so a logged in user can only remove their profile and no one else's
     removeProfile: async (parent, args, context) => {
-        if (context.user) {
-      return Profile.findOneAndDelete({ _id: context.user._id });
-        }
+      if (context.user) {
+        return Profile.findOneAndDelete({ _id: context.user._id });
+      }
       throw new AuthenticationError('You need to be logged in!')
     },
     // Make it so a logged in user can only remove a skill from their own profile
-    removeSkill: async (parent, { skill }, context) => {
-        if (context.user) {
-      return Profile.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { skills: skill } },
-        { new: true }
-      );
-        }
-        throw new AuthenticationError('You need to be logged in!');
-    },
   },
 }
 

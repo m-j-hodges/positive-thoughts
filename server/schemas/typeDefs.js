@@ -3,7 +3,8 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
 type Profile {
     _id: ID
-    name: String
+    firstName: String
+    lastName: String
     username: String
     email: String
     password: String
@@ -13,7 +14,7 @@ type Profile {
 
 type Auth {
   token: ID!
-  profile: Profile
+  user: User
 }
 type Comment {
   _id: ID
@@ -41,17 +42,40 @@ type Thought {
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
-    addProfile(name: String!, email:String!, password:String!, username:String!): Auth
+    addProfile(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): Auth
     addSkill(profileId: ID!, skill: String!): Profile
     removeProfile(profileId: ID!): Profile
     removeSkill(profileId: ID!, skill: String!): Profile
     addThoughts(author: String!, text: String!) : [Thought]
     addThought(author: String!, text: String!): Thought
     addComment(thoughtId: String!, commentText: String!, commentor: String!): Thought
+
     removeComment(thoughtId: String, commentId: String!) : Thought
+    addUser(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): User
+    login(email: String!, password: String!): Auth
   }
 
+  
+  type User {
+    _id: ID
+    firstName: String
+    lastName: String
+    username: String
+    email: String
+    password: String
+  }
+
+  input SignUpInput {
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+  }
+
+  input LoginInput {
+    email: String
+    password: String
+  }
 
 `;
 module.exports = typeDefs;
