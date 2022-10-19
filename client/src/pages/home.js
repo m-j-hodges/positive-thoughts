@@ -25,7 +25,7 @@ const thoughtsFeed = data?.thoughts || [];
     <div>
 <Navbar />
 {loading ? (<div>Loading...</div>) :(
- <div className="col-12 col-md-8 mb-3">
+ <div className="col-12 col-md-12 mb-3 mt-5 align-items-center" style={{backgroundColor: "#E5F9FF"}}>
 <Thoughts thoughts={newThoughtsFeed}/>
 </div> 
 )}

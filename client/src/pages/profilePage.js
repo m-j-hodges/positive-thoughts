@@ -31,7 +31,7 @@ function ProfilePage() {
 
   const profile = data?.me || {};
 
-  console.log(profile.favThought)
+
 var thoughts = profile.favThought
 
 

@@ -15,7 +15,7 @@ import {QUERY_COMMENT} from '../utils/queryThought'
 
 let divArray
 function Thoughts({thoughts}) {
-console.log(thoughts)
+
   const [submitBtn, setSubmit] = useState('submit')
   const [storeText, setText] = useState('')
   const [storeUser, setUser] = useState('')
@@ -129,7 +129,8 @@ async function saveFavThought(e) {
 
 
     return (
-      <div className="align-items-center">
+      <div className="align-items-center ">
+        <br></br>
       {thoughts && thoughts.map((item) => (
         <div className="card my-4" id={item._id}>
         <div className="card-header">
@@ -149,8 +150,10 @@ async function saveFavThought(e) {
           </div>
         ))}
         </div>
-        <button className="btn btn-primary ml-4 mr-4 mb-3" id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}}>leave comment</button>
-        <button className="btn btn-primary ml-4 mr-4 mb-3" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
+        <div className="btn-group" style={{boxShadow: 'none'}}>
+        <button className="btn btn-primary w-25 ml-4 mr-4 mb-3" id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}}>leave comment</button>
+        <button className="btn btn-primary w-25 ml-4 mr-4 mb-3" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
+          </div>
       <div id={'leaveComment'+ item._id} className={displayLeftComment}>
         <p> Author: {commentState.thisauthor}</p>
         <p> Comment: {commentState.thistext}</p>
