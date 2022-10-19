@@ -13,9 +13,10 @@ So that I can comment with others and store my favorite quotes.
 1. [FEATURES](#features)
 2. [INSTALLATION](#installation)
 3. [PREVIEW](preview)
-4. [AUTHORS](#authors)
-5. [LINKS](#links)
-6. [BADGES](#badges)
+4. [FUTURE_ENHANCEMENTS](future enhancements)
+5. [AUTHORS](#authors)
+6. [LINKS](#links)
+7. [BADGES](#badges)
 
 ## FEATURES
 
@@ -32,11 +33,28 @@ React will need to be installed as well
 ## PREVIEW
 
 ![Demo] enter URL
+### Landing Page
+![alt text](./client/src/images/landing%20page.png)
+### Thoughts Page
+![alt text](./client/src/images/Thoughts%20page.png)
+### Profile Page
+![alt text](./client/src/images//Profile%20Page.png)
+
+
+
+## FUTURE ENHANCEMENTS
+
+* Adding and Changing a profile picture
+* Updating profile information
+* Adding a "like" feature to comments and thoughts
+* Single Sign On (SSO)
+
+
 
 ## CONTRIBUTORS
 
 * Matthew Hodges | github: m-j-hodges
-* Michael Andrews| Github : mandrews78
+* Michael Andrews | Github : mandrews78
 * Jason South | GitHub: jsouth75
 * Lucia Gil  | Github: LuciaMGil
 * Sean Conrad  | Github: seandarnoc
