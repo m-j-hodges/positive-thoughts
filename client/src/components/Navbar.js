@@ -7,7 +7,7 @@ function Navbar() {
     
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Positive Thoughts</a>
+      <Link to={`/home`} className="nav-item nav-link navbar-brand">Positive Thoughts</Link> 
       </div>
         {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -15,9 +15,9 @@ function Navbar() {
         {/* <div className="collapse navbar-collapse" id="navbarNavAltMarkup"> */}
             <div className="navbar-nav">
 
-           <Link to={`/home`}><a className="nav-item nav-link" href="/home">Home</a></Link> 
-           <Link to={`/profile`}><a className="nav-item nav-link" href="/profile">Profile</a></Link> 
-           <Link onClick={Auth.logout}  to={`/`}> <a className="nav-item nav-link" href="/">Logout</a></Link> 
+           <Link to={`/home`} className="nav-item nav-link">Home</Link> 
+           <Link to={`/profile`} className="nav-item nav-link">Profile</Link> 
+           <Link to={`/`} onClick={Auth.logout} className="nav-item nav-link"> Logout</Link> 
           
             </div>
         {/* </div> */}
