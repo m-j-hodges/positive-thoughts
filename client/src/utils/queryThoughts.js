@@ -7,8 +7,6 @@ export const QUERY_THOUGHTS = gql`query Query {
     comments {
       commentor
       commentText
-      _id
-      createdAt
       commentAuthor
     }
     text
