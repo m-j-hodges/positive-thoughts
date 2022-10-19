@@ -11,7 +11,6 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-  gql
 } from "@apollo/client";
 
 const httpLink = createHttpLink({
@@ -36,22 +35,6 @@ const client = new ApolloClient({
 
 function App() {
 
-//    let Component
-//    switch (window.location.pathname) {
-//      case "/":
-//        Component = <Login />
-//        break
-//        case "/signUp":
-//        Component = <SignUp />
-//        break
-//        case "/home":
-//        Component = <Home />
-//        break
-//        case "/profile":
-//        Component = <Profile />
-//        break
-// }
-
     return (
       
 <ApolloProvider client={client}>
@@ -73,6 +56,10 @@ function App() {
            />
            <Route 
              path="/profile" 
+             element={<Profile />} 
+           />
+            <Route 
+             path="/profile/634f0b87c81c486bdc070aff" 
              element={<Profile />} 
            />
          </Routes>

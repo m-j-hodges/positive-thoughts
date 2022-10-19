@@ -24,3 +24,28 @@ export const QUERY_PROFILE = gql`
 `;
 
 
+
+export const QUERY_SINGLE_PROFILE = gql`
+query singleProfile($profileId: ID!) {
+  profile(profileId: $profileId) {
+    _id
+    firstName
+    lastName
+    username
+    email
+    password
+  }
+}
+`;
+
+export const QUERY_ME = gql`
+query me {
+  me {
+    _id
+    name
+  }
+}
+`;
+
+
+
