@@ -33,12 +33,21 @@ React will need to be installed as well
 ## PREVIEW
 
 ![Demo] enter URL
+### Landing Page
+![alt text](./client/src/images/landing%20page.png)
+### Thoughts Page
+![alt text](./client/src/images/Thoughts%20page.png)
+### Profile Page
+![alt text](./client/src/images//Profile%20Page.png)
+
+
 
 ## FUTURE ENHANCEMENTS
 
-Adding and Changing a profile picture
-Adding a "like" feature to comments and thoughts
-Single Sign On (SSO)
+* Adding and Changing a profile picture
+* Updating profile information
+* Adding a "like" feature to comments and thoughts
+* Single Sign On (SSO)
 
 
 
