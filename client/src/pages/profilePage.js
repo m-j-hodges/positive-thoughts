@@ -79,7 +79,7 @@ var thoughts = profile.favThought
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5'>
           <h5 className='mb-5 text-center'>Favorite Thoughts</h5>
-          {thoughts.map((thought) => thought? (
+          {!loading ? thoughts.map((thought) => thought? (
           <div>
               <p>
                 <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'red' }}>
@@ -93,7 +93,7 @@ var thoughts = profile.favThought
             </div> 
           ):
               <p>You have no favorite thoughts</p>
-          )}
+          ): 'loading fav thoughts...'}
          
           <br></br>
             <MDBBtn className='w-100 mb-4' size='md'>View More</MDBBtn>
