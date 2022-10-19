@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/profilePage.css';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import {
   MDBBtn,
   MDBContainer,
@@ -12,8 +14,14 @@ import {
   MDBCardImage
 }
 from 'mdb-react-ui-kit';
+import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
+import Auth from '../utils/auth';
 
 function profilePage() {
+
+  
+  // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
+  const profile = data?.me || data?.profile || {};
 
   return (
     <div>
@@ -25,18 +33,22 @@ function profilePage() {
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5'> 
             <MDBRow>
-              <h3 className='text-center mb-5 text-'>Profile Information</h3>
-              <MDBCol className='text-center mr-5 mb-3' md='5' col='2'>
-              <MDBCardImage src='https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png'  className='img-fluid w-100' alt='' fluid />
+              <h5 className='mb-5 text-'>Profile Information</h5>
+              <MDBCol className='' col='3'>
+                <img src='https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png' className='img-fluid w-100' alt='profilepicture' fluid='true'/>
                 <br></br>
-                <MDBBtn className='w-100 mt-3 mb-2' size='md'>Change profile picture</MDBBtn>
-              </MDBCol> 
-              <MDBCol col='9'>                    
-                <h7><b>Username:</b><span>Lucia222</span> </h7>
+                <MDBBtn className='w-80 mb-4' size='md'>Change profile picture</MDBBtn>
+              </MDBCol>
+              <MDBCol col='9'>   
+                <h6><b>First Name:</b><span>{profile.firstName}</span> </h6>
+                <hr></hr> 
+                <h6><b>Last Name:</b><span>{profile.lastName}</span> </h6>
+                <hr></hr>                 
+                <h6><b>Username:</b><span>{profile.username}</span> </h6>
                 <hr></hr>
-                <h7><b>Email:</b><span>Lucia222@gmail.com</span> </h7>
+                <h6><b>Email:</b><span>{profile.email}</span> </h6>
                 <hr></hr>
-                <h7><b>Password:</b><span>*****</span> </h7>
+                <h6><b>Password:</b><span>*******</span> </h6>
                 <hr></hr>
                 <MDBBtn className='text-center w-100 mb-4' size='md'>Change profile information</MDBBtn>
               </MDBCol>
@@ -50,7 +62,7 @@ function profilePage() {
       <MDBCol size='lg' col='8'>
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5'>
-          <h5 className='mb-5 text-center'>Saved Thoughts</h5>
+          <h5 className='mb-5 text-center'>Favorite Thoughts</h5>
           <p>  
             <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'red' }}>
               <MDBIcon fas icon="heart" />
@@ -107,4 +119,4 @@ function profilePage() {
   )
 }
 
-export default profilePage
+export default ProfilePage

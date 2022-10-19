@@ -6,7 +6,7 @@ function Navbar() {
     
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Positive Thoughts</a>
+      <Link to={`/home`} className="nav-item nav-link navbar-brand">Positive Thoughts</Link> 
       </div>
     
           <Link to={`/home`}><a className="nav-item nav-link" href="/home">Home</a></Link> 
