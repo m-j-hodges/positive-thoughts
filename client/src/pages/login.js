@@ -6,20 +6,19 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/loginMutation';
 
 import Auth from '../utils/auth';
-// import {
-//   MDBBtn,
-//   MDBTypography,
-//   MDBContainer,
-//   MDBCard,
-//   MDBCardBody,
-//   MDBCardImage,
-//   MDBRow,
-//   MDBCol,
-//   MDBInput,
-//   MDBCheckbox,
-// }
-// from 'mdb-react-ui-kit';
-
+import {
+  MDBBtn,
+  MDBTypography,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBCheckbox,
+}
+from 'mdb-react-ui-kit';
 
 
 const Login = (props) => {
@@ -72,35 +71,37 @@ console.log("hi");
 
   return (
 
-    <div className='my-5'>
-
-
-      <div className='card row '>
-
-        <div className="col" md='5'>
-          <img src={image} alt={"login"} width={250}
-            height={250} className='' />
-        </div>
-
-        <div className="card-body" md='6'>
-          <h5 className='text-center h1'>Positive Thoughts</h5>
-
-          <form onSubmit={handleFormSubmit}>
-
-            <input name='email' onChange={handleInputChange} className='col-xs-2' label='email address' id='typeEmail' type='email' />
-            <input name='password' onChange={handleInputChange} label='password' id='typePassword' type='password' />
-
-            <button className="mb-4 w-100">Sign in</button>
-          <Link to="/signUp"><button className="mb-4 w-100">Sign up</button></Link>  
-                </form>         
-
-          </div>
-
-        </div>
-
-      </div>
+    <MDBContainer fluid className='my-5'>
+    <MDBRow className='g-0 align-items-center'>
+      <MDBCol size='lg' col='6'>
+        <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
+          <MDBCardBody className='p-5 shadow-5 text-center'>
+            <MDBRow className='g-0 align-items-center'>
+              {/* logo image */}
+              <MDBCol className='mr-5 mb-3' md='5' col='4'>
+                <MDBCardImage src={image}  className='w-0' fluid />
+              </MDBCol>
+              <MDBCol>   
+                
+                <form onSubmit={handleFormSubmit}>
+                <h2 className="fw-bold mb-5">Positive Thoughts</h2>
+               
+                  {/* <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/> */}
+                  <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email'/>
+                  <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
+                  <MDBBtn className='w-100 mb-4' size='lg'>Login</MDBBtn>
+                  <h6 className="mb-2">Don't have an account?</h6>
+                  <MDBBtn className='w-100 mb-4' size='lg' href='/signUp'>Sign Up</MDBBtn>
+                      
+                </form>  
+              </MDBCol>
+            </MDBRow>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow> 
+    </MDBContainer>
   
   );
-
 };
     export default Login;
