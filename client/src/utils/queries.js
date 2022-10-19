@@ -17,7 +17,6 @@ export const QUERY_PROFILE = gql`
       email
       username
       password
-      favThoughts
       comments
     }
   }
@@ -26,14 +25,19 @@ export const QUERY_PROFILE = gql`
 
 
 export const QUERY_SINGLE_PROFILE = gql`
-query singleProfile($profileId: ID!) {
-  profile(profileId: $profileId) {
+query user ($profileId: ID!) {
+  user (profileId: $profileId) {
     _id
     firstName
     lastName
     username
     email
     password
+    favThought {
+      _id
+      author
+      text
+    }
   }
 }
 `;
@@ -47,9 +51,25 @@ query me {
     username
     email
     password
+    favThought {
+      _id
+      author
+      text
+    }
   }
 }
 `;
 
 
 
+export const GET_FAV_QUOTES = gql`
+query getFaveQuotes($email: String!) {
+  getFavQuotes(email: $email) {
+    favThought {
+      author
+      text
+      _id
+    }
+  }
+}
+`;

@@ -8,6 +8,12 @@ mutation login($email: String!, $password: String!) {
     user {
       _id
       username
+      email
+      favThought {
+        _id
+        text
+        author
+     }
     }
   }
 }`
