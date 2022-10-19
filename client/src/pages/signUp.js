@@ -96,6 +96,7 @@ const handleFormSubmit = async (event) => {
                     <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/>
                     <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email'/>
                     <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
+
                     <MDBBtn className='w-100 mb-4'  size='lg'>Sign Up</MDBBtn>
          
                     <h6 className='mb-2'>Have an account?</h6>

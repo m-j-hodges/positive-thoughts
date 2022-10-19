@@ -28,6 +28,8 @@ type Thought {
     thoughts: [Thought]
     user: User
     users: [User]
+    getFavQuotes(email: String!): User
+    queryComment(thoughtId: ID!): Thought
   }
 
   type Mutation {
@@ -37,6 +39,7 @@ type Thought {
     removeComment(thoughtId: ID!, commentId: ID!) : Thought
     addUser(firstName: String!, lastName: String!, email:String!, password:String!, username:String!): Auth
     login(email: String!, password: String!): Auth
+    storeFavThought(email: String!, thoughtId: ID!) : User
   }
 
   
@@ -47,6 +50,7 @@ type Thought {
     username: String
     email: String
     password: String
+    favThought: [Thought]
   }
 
 
