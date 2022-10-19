@@ -98,8 +98,8 @@ const handleFormSubmit = async (event) => {
                     <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
                     <MDBBtn className='w-100 mb-4'  size='lg'>Sign Up</MDBBtn>
          
-                    <h6 className="mb-4">Have an account?</h6>
-                    <Link to="/"><MDBBtn className="mb-4 w-100" size='md'>Login</MDBBtn></Link>  
+                    <h6 className='mb-2'>Have an account?</h6>
+                    <Link to="/"><MDBBtn className="mb-4 w-100" size='lg'>Login</MDBBtn></Link>  
                     <div className={successNote}>&#128077;</div> 
                         
                   </form>

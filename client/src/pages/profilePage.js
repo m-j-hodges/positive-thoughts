@@ -8,21 +8,16 @@ import {
   MDBCardBody,
   MDBIcon,
   MDBRow,
-  MDBCol
+  MDBCol,
+  MDBCardImage
 }
 from 'mdb-react-ui-kit';
 
-
-
-
 function profilePage() {
-
-
 
   return (
     <div>
 <Navbar />
-    
     
   <MDBContainer className='my-5'>
     <MDBRow className='g-2 align-items-center'>
@@ -30,12 +25,12 @@ function profilePage() {
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5'> 
             <MDBRow>
-              <h5 className='mb-5 text-'>Profile Information</h5>
-              <MDBCol className='' col='3'>
-                <img src='https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png' className='img-fluid w-100' alt='' fluid/>
+              <h3 className='text-center mb-5 text-'>Profile Information</h3>
+              <MDBCol className='text-center mr-5 mb-3' md='5' col='2'>
+              <MDBCardImage src='https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png'  className='img-fluid w-100' alt='' fluid />
                 <br></br>
-                <MDBBtn className='w-80 mb-4' size='md'>Change profile picture</MDBBtn>
-              </MDBCol>
+                <MDBBtn className='w-100 mt-3 mb-2' size='md'>Change profile picture</MDBBtn>
+              </MDBCol> 
               <MDBCol col='9'>                    
                 <h7><b>Username:</b><span>Lucia222</span> </h7>
                 <hr></hr>
@@ -43,7 +38,7 @@ function profilePage() {
                 <hr></hr>
                 <h7><b>Password:</b><span>*****</span> </h7>
                 <hr></hr>
-                <MDBBtn className='w-80 mb-4' size='md'>Change profile information</MDBBtn>
+                <MDBBtn className='text-center w-100 mb-4' size='md'>Change profile information</MDBBtn>
               </MDBCol>
             </MDBRow>
           </MDBCardBody> 
