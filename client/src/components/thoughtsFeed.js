@@ -15,7 +15,7 @@ import {QUERY_COMMENT} from '../utils/queryThought'
 
 let divArray
 function Thoughts({thoughts}) {
-console.log(thoughts)
+
   const [submitBtn, setSubmit] = useState('submit')
   const [storeText, setText] = useState('')
   const [storeUser, setUser] = useState('')
@@ -129,7 +129,8 @@ async function saveFavThought(e) {
 
 
     return (
-      <div className="align-items-center">
+      <div className="align-items-center ">
+        <br></br>
       {thoughts && thoughts.map((item) => (
         <div className="card my-4" id={item._id}>
         <div className="card-header">
@@ -144,13 +145,15 @@ async function saveFavThought(e) {
         <div id={"comment"+ item._id}>
         {item.comments.map((thisComment) => (
           <div>
-          <p> Author: {thisComment.commentor} </p>
-          <p> Comment: {thisComment.commentText} </p>
+          <p className="ml-4 mr-4 mb-3"> Author: {thisComment.commentor} </p>
+          <p className="ml-4 mr-4 mb-3"> Comment: {thisComment.commentText} </p>
           </div>
         ))}
         </div>
-        <button id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}} className="btn btn-primary">leave comment</button>
-        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
+        <div className="btn-group" style={{boxShadow: 'none'}}>
+        <button className="btn btn-primary w-25 ml-4 mr-4 mb-3" id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}}>leave comment</button>
+        <button className="btn btn-primary w-25 ml-4 mr-4 mb-3" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
+          </div>
       <div id={'leaveComment'+ item._id} className={displayLeftComment}>
         <p> Author: {commentState.thisauthor}</p>
         <p> Comment: {commentState.thistext}</p>
@@ -158,10 +161,10 @@ async function saveFavThought(e) {
         <div id={"div" + item._id} className={displayComment}>
         <form>
   <div className="form-group">
-    <label>Your Comment :</label>
-    <input type="text" onChange={(e)=> setText(e.target.value)}className="form-control m-3" id={'commentText' + item._id} placeholder="your comment here." />
-    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control m-3" id={'commentor' + item._id} placeholder="Username" />
-    <button className="btn btn-primary m-2" id={'submit' + '_' + item._id} type="submit" onClick={async() => await addComment({ variables: {thoughtId: item._id, commentText: storeText, commentor: storeUser}})} >{load ? 'loading...' :submitBtn}</button>
+    <label className="ml-3">Your Comment :</label>
+    <input  type="text" onChange={(e)=> setText(e.target.value)}className="form-control m-3 w-50" id={'commentText' + item._id} placeholder="Type your comment" />
+    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control m-3 w-25" id={'commentor' + item._id} placeholder="Username" />
+    <button className="btn btn-primary ml-3" id={'submit' + '_' + item._id} type="submit" onClick={(e) => submitForm(e)} >{load ? 'loading...' :submitBtn}</button>
   </div>
   </form>
         </div>
