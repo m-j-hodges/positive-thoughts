@@ -10,25 +10,14 @@ import {
   MDBCardBody,
   MDBIcon,
   MDBRow,
-  MDBCol
+  MDBCol,
+  MDBCardImage
 }
 from 'mdb-react-ui-kit';
 import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
 
-
-
-function ProfilePage() {
-
-  const { profileId } = useParams();
-
-  // If there is no `profileId` in the URL as a parameter, execute the `QUERY_ME` query instead for the logged in user's information
-  const { loading, data } = useQuery(
-    profileId ? QUERY_SINGLE_PROFILE : QUERY_ME,
-    {
-      variables: { profileId: profileId },
-    }
-  );
+function profilePage() {
 
   
   // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
@@ -37,7 +26,6 @@ function ProfilePage() {
   return (
     <div>
 <Navbar />
-    
     
   <MDBContainer className='my-5'>
     <MDBRow className='g-2 align-items-center'>
@@ -62,7 +50,7 @@ function ProfilePage() {
                 <hr></hr>
                 <h6><b>Password:</b><span>*******</span> </h6>
                 <hr></hr>
-                <MDBBtn className='w-80 mb-4' size='md'>Change profile information</MDBBtn>
+                <MDBBtn className='text-center w-100 mb-4' size='md'>Change profile information</MDBBtn>
               </MDBCol>
             </MDBRow>
           </MDBCardBody> 
