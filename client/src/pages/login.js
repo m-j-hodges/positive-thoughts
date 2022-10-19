@@ -93,7 +93,7 @@ console.log("hi");
                   <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
                   <MDBBtn className='w-100 mb-4' size='lg'>Login</MDBBtn>
                   <h6 className="mb-2">Don't have an account?</h6>
-                  <MDBBtn className='w-100 mb-4' size='lg' href='/signUp'>Sign Up</MDBBtn>
+                  <Link to="/signUp"><MDBBtn className="mb-4 w-100" size='lg'>Sign Up</MDBBtn></Link>
                       
                 </form>  
               </MDBCol>

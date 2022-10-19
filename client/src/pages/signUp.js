@@ -9,7 +9,6 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBInput,
-  // MDBIcon,
   MDBRow,
   MDBCol
 }
@@ -42,10 +41,8 @@ const handleInputChange = (event) => {
 const handleFormSubmit = async (event) => {
   event.preventDefault();
 
-  // check if form has everything (as per react-bootstrap docs)
   const form = event.currentTarget;
  
-
   try {
     const { data } = await addUser({
       variables: { ...userFormData },
@@ -56,6 +53,7 @@ const handleFormSubmit = async (event) => {
     console.log(data);
     Auth.login(data.addUser.token);
     navigate(`/home`);
+
   } catch (err) {
     console.error(err);
   }
@@ -75,8 +73,6 @@ const handleFormSubmit = async (event) => {
           <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
             <MDBCardBody className='p-5 shadow-5 text-center'>
               <MDBRow className='g-0 align-items-center'>
-                {/* <MDBCol size='lg' md='5' col='6'> */}
-                {/* logo image */}
                 <MDBCol className='mr-5 mb-3' md='5' col='4'>
                   <MDBCardImage src={image}  className='w-0' fluid />
                 </MDBCol>
@@ -84,28 +80,27 @@ const handleFormSubmit = async (event) => {
                   <form onSubmit={handleFormSubmit}>
                     <h2 className="fw-bold mb-2">Sign up</h2>
                     <h5 className='mb-5'>to receive inspiring quotes</h5>   
-                      {/* <label for="form1"> first name:</label> */}
-                  <MDBRow>
-                    <MDBCol className='col-6'>
-                      <MDBInput name='firstName' wrapperClass='mb-4' onChange={handleInputChange} label='First Name' id='form1' type='text'/>
-                    </MDBCol> 
-                    <MDBCol className='col-6'>
-                      <MDBInput name='lastName' wrapperClass='mb-4' onChange={handleInputChange} label='Last Name' id='form2' type='text'/>
-                    </MDBCol>
-                  </MDBRow>
+                    {/* <label for="form1"> first name:</label> */}
+                    <MDBRow>
+                      <MDBCol className='col-6'>
+                        <MDBInput name='firstName' wrapperClass='mb-4' onChange={handleInputChange} label='First Name' id='form1' type='text'/>
+                      </MDBCol> 
+                      <MDBCol className='col-6'>
+                        <MDBInput name='lastName' wrapperClass='mb-4' onChange={handleInputChange} label='Last Name' id='form2' type='text'/>
+                      </MDBCol>
+                    </MDBRow>
                     <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/>
                     <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email'/>
                     <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
 
                     <MDBBtn className='w-100 mb-4'  size='lg'>Sign Up</MDBBtn>
-         
+
                     <h6 className='mb-2'>Have an account?</h6>
-                    <Link to="/"><MDBBtn className="mb-4 w-100" size='lg'>Login</MDBBtn></Link>  
+
+                    <Link to="/"><MDBBtn className="mb-4 w-100" size='lg'>Login</MDBBtn></Link>
+
                     <div className={successNote}>&#128077;</div> 
-                        
-                  </form>
-                    
-                      
+                  </form>   
                 </MDBCol>
               </MDBRow>
 
