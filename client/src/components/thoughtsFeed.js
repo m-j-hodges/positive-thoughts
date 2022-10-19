@@ -144,13 +144,13 @@ async function saveFavThought(e) {
         <div id={"comment"+ item._id}>
         {item.comments.map((thisComment) => (
           <div>
-          <p> Author: {thisComment.commentor} </p>
-          <p> Comment: {thisComment.commentText} </p>
+          <p className="ml-4 mr-4 mb-3"> Author: {thisComment.commentor} </p>
+          <p className="ml-4 mr-4 mb-3"> Comment: {thisComment.commentText} </p>
           </div>
         ))}
         </div>
-        <button id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}} className="btn btn-primary">leave comment</button>
-        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
+        <button className="btn btn-primary ml-4 mr-4 mb-3" id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}}>leave comment</button>
+        <button className="btn btn-primary ml-4 mr-4 mb-3" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
       <div id={'leaveComment'+ item._id} className={displayLeftComment}>
         <p> Author: {commentState.thisauthor}</p>
         <p> Comment: {commentState.thistext}</p>

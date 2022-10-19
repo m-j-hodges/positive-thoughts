@@ -15,6 +15,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 import {  QUERY_ME, } from '../utils/queries';
+import stanman from '../img/stanman.png'
 import Auth from '../utils/auth';
 
 
@@ -50,21 +51,21 @@ var thoughts = profile.favThought
               <h3 className='mb-5 text-center'>Profile Information</h3>
             
               <MDBCol className='mr-5 mb-3' md='5' col='4'>
-                <MDBCardImage src='https://180dc.org/wp-content/uploads/2017/11/profile-placeholder.png' className='img-fluid w-100' alt='profilepicture' fluid='true'/>
+                <MDBCardImage src={stanman} className='img-fluid w-100' alt='profilepicture' fluid='true'/>
       
                 <br></br>
-                <MDBBtn className='text-center w-100 mb-4' size='md'>Change profile picture</MDBBtn>
+                <MDBBtn className='text-center w-100 mb-4 mt-3' size='md'>Change profile picture</MDBBtn>
               </MDBCol>
               <MDBCol col='9'>   
-                <h6><b>First Name:</b><span>{profile.firstName}</span> </h6>
+                <h6><b>First Name:</b><span className='pl-2' >{profile.firstName}</span> </h6>
                 <hr></hr> 
-                <h6><b>Last Name:</b><span>{profile.lastName}</span> </h6>
+                <h6><b>Last Name:</b><span className='pl-2'>{profile.lastName}</span> </h6>
                 <hr></hr>                 
-                <h6><b>Username:</b><span>{profile.username}</span> </h6>
+                <h6><b>Username:</b><span className='pl-2'>{profile.username}</span> </h6>
                 <hr></hr>
-                <h6><b>Email:</b><span>{profile.email}</span> </h6>
+                <h6><b>Email:</b><span className='pl-2'>{profile.email}</span> </h6>
                 <hr></hr>
-                <h6><b>Password:</b><span>*****</span> </h6>
+                <h6><b>Password:</b><span className='pl-2'>*****</span> </h6>
                 <hr></hr>
                 <MDBBtn className='text-center w-100 mb-4' size='md'>Change profile information</MDBBtn>
               </MDBCol>
@@ -79,24 +80,21 @@ var thoughts = profile.favThought
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5'>
           <h5 className='mb-5 text-center'>Favorite Thoughts</h5>
-          {!loading ? thoughts.map((thought) => thought? (
+         {!loading ? thoughts.map((thought) => thought? (
           <div>
               <p>
                 <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'red' }}>
                 <MDBIcon fas icon="heart" />
                 </MDBBtn>
-                {thought.text} 
-                <br></br>
-                {thought.author}
+                <span className="ml-2 mr-2"> {thought.text}</span>    -  <span className="ml-2"> {thought.author}</span>  
               </p>
               <hr></hr>
-            </div> 
-          ):
-              <p>You have no favorite thoughts</p>
-          ): 'loading fav thoughts...'}
-         
+            </div>  
+           ):
+               <p>You have no favorite thoughts</p>
+           ): 'loading fav thoughts...'}
           <br></br>
-            <MDBBtn className='w-100 mb-4' size='md'>View More</MDBBtn>
+            
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
