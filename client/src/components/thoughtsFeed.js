@@ -150,7 +150,7 @@ async function saveFavThought(e) {
         ))}
         </div>
         <button id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}} className="btn btn-primary">leave comment</button>
-        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite comments.')} </button>
+        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite quotes')} </button>
       <div id={'leaveComment'+ item._id} className={displayLeftComment}>
         <p> Author: {commentState.thisauthor}</p>
         <p> Comment: {commentState.thistext}</p>
