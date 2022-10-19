@@ -59,7 +59,7 @@ function App() {
              element={<Profile />} 
            />
             <Route 
-             path="/profile/634f0b87c81c486bdc070aff" 
+             path="/profile/:profileId" 
              element={<Profile />} 
            />
          </Routes>
