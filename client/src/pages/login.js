@@ -8,7 +8,6 @@ import { LOGIN } from '../utils/loginMutation';
 import Auth from '../utils/auth';
 import {
   MDBBtn,
-  MDBTypography,
   MDBContainer,
   MDBCard,
   MDBCardBody,
@@ -16,7 +15,6 @@ import {
   MDBRow,
   MDBCol,
   MDBInput,
-  MDBCheckbox,
 }
 from 'mdb-react-ui-kit';
 
@@ -26,21 +24,17 @@ const Login = (props) => {
   const [login, { error, data }] = useMutation(LOGIN);
   let navigate = useNavigate();
 
-
+  // Change userFormData when input changes
   const handleInputChange = (event) => {
-  
     const { name, value } = event.target;
-  
-
     setUserFormData({
       ...userFormData,
       [name]: value,
     });
   };
-  //submit form
+  //Submit form 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-console.log("hi");
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -48,21 +42,17 @@ console.log("hi");
     }
 
     try {
-      console.log(userFormData)
       const { data } = await login({
         variables: { ...userFormData },
       });
 
-      console.log(data.login.user.favThought.map((element) => {
-        return element._id
-      }));
-      Auth.login(data.login.token,JSON.stringify(data.login.user.email));
+      Auth.login(data.login.token);
       navigate(`/home`);
     } catch (e) {
       console.error(e);
     }
 
-    // clear form values
+    // Clear the form values
     setUserFormData({
       email: '',
       password: '',
