@@ -5,7 +5,7 @@ import Login from './pages/login';
 import SignUp from './pages/signUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
-// import thoughtsPage from './pages/thoughtsPage';
+
 import {
   ApolloClient,
   InMemoryCache,
