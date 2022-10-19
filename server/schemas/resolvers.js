@@ -9,6 +9,12 @@ const User = require('../models/users');
 
 const resolvers = {
   Query: {
+    queryComment: async (parent, {thoughtId}) => {
+    return Thought.findOne({_id: thoughtId}).populate('comments')
+    },
+    getFavQuotes: async (parent, {email}) => {
+      return User.findOne({email:email}).populate('favThought')
+    },
     users: async () => {
       return User.find();
     },
@@ -40,6 +46,13 @@ const resolvers = {
     }
   },
   Mutation: {
+    storeFavThought: async (parent, {email, thoughtId}) => {
+      return User.findOneAndUpdate({email: email}, {
+        $addToSet: {
+          favThought: thoughtId
+        }
+      })
+    },
     addThought: async (parent, { text, author }) => {
       return Thought.create({ author, text });
     },

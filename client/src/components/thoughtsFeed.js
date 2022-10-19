@@ -6,6 +6,8 @@ import $ from 'jquery'
 import { STORE_THOUGHT} from '../utils/storeThoughts'
 import {useMutation} from '@apollo/client'
 import {STORE_COMMENT} from '../utils/storeComment'
+import Auth from '../utils/auth'
+import {STORE_FAVTHOUGHT} from '../utils/storeFavThought'
 
 
 
@@ -18,6 +20,7 @@ console.log(thoughts)
   const [displayComment, showCommentBox] = useState('d-none')
   const [addThought, { data,loading,error }] = useMutation(STORE_THOUGHT);
   const [addComment, {cData, load, err}] = useMutation(STORE_COMMENT)
+  const [addFavThought, {newData, loadThought, er}] = useMutation(STORE_FAVTHOUGHT)
   //  if(loggedIn) {
 const [newFact, setFact] = useState('')
 // const [author, setAuthor] = useState('')
@@ -99,6 +102,25 @@ function showComment(e) {
   targetDiv.classList.add('d-block')
 }
 
+async function saveFavThought(e) {
+  e.preventDefault();
+  const {id} = e.target
+  const splitId = id.split('_')
+  const favThoughtId = splitId[1]
+  const token = localStorage.getItem('id_token')
+  const profileData = Auth.getProfile(token)
+  const extractProfileData = profileData.data
+  const userEmail = extractProfileData.email
+  const { newData } = await addFavThought({
+    variables: {email: userEmail, thoughtId: favThoughtId
+    }}
+  )
+  
+
+
+  }
+
+
     return (
       <div className="align-items-center">
       {thoughts && thoughts.map((item) => (
@@ -113,6 +135,9 @@ function showComment(e) {
           </blockquote>
         </div>
         <button id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}} className="btn btn-primary">leave comment</button>
+        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('submitting comment...') : ('add to favorite comments.')} </button>
+      <div>
+      {loadThought? (<p> saving Favorite.</p>): (<p></p>)}</div>
         <div id={"div" + item._id} className={displayComment}>
         <form>
   <div className="form-group">
@@ -128,14 +153,8 @@ function showComment(e) {
           <div>
           <p> Author: {eachItem.commentor}</p>
           <p> Comment: {eachItem.commentText}</p>
-          <div class="icon-trash" style="float: left">
-    <div class="trash-lid" style="background-color: #2CC3B5"></div>
-    <div class="trash-container" style="background-color: #2CC3B5"></div>
-    <div class="trash-line-1"></div>
-    <div class="trash-line-2"></div>
-    <div class="trash-line-3"></div>
-  </div>
-          </div> ) : <div> No comments yet... </div> 
+          </div>
+          ) : (<div> No comments yet... </div>) 
         ))}
       </div>
       ))}
@@ -143,7 +162,8 @@ function showComment(e) {
       
       <button>Click Me!</button> 
       </div>
-    )
+
+)
 
     }
   
