@@ -164,7 +164,7 @@ async function saveFavThought(e) {
     <label className="ml-3">Your Comment :</label>
     <input  type="text" onChange={(e)=> setText(e.target.value)}className="form-control m-3 w-50" id={'commentText' + item._id} placeholder="Type your comment" />
     <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control m-3 w-25" id={'commentor' + item._id} placeholder="Username" />
-    <button className="btn btn-primary ml-3" id={'submit' + '_' + item._id} type="submit" onClick={async() => await addComment({ variables: {thoughtId: item._id, commentText: storeText, commentor: storeUser}})} >{load ? 'loading...' :submitBtn}</button>
+    <button className="btn btn-primary ml-3" id={'submit' + '_' + item._id} type="submit" onClick={(e) => submitForm(e)} >{load ? 'loading...' :submitBtn}</button>
   </div>
   </form>
         </div>
