@@ -24,7 +24,7 @@ const Login = (props) => {
   const [login, { error, data }] = useMutation(LOGIN);
   let navigate = useNavigate();
 
-  // Change userFormData when input changes
+// Change userFormData when input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({
@@ -32,7 +32,7 @@ const Login = (props) => {
       [name]: value,
     });
   };
-  //Submit form 
+//Submit form 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -52,7 +52,7 @@ const Login = (props) => {
       console.error(e);
     }
 
-    // Clear the form values
+// Clear the form values
     setUserFormData({
       email: '',
       password: '',
@@ -69,7 +69,6 @@ const Login = (props) => {
         <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
           <MDBCardBody className='p-5 shadow-5 text-center'>
             <MDBRow className='g-0 align-items-center'>
-              {/* logo image */}
               <MDBCol className='mr-5 mb-3' md='5' col='4'>
                 <MDBCardImage src={image}  className='w-0' fluid />
               </MDBCol>
@@ -77,7 +76,7 @@ const Login = (props) => {
                 
                 <form onSubmit={handleFormSubmit}>
                 <h2 className="fw-bold mb-5">Positive Thoughts</h2>
-               
+               {/* future development... */}
                   {/* <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/> */}
                   <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email'/>
                   <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
