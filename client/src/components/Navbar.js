@@ -9,9 +9,9 @@ function Navbar() {
       <Link to={`/home`} className="nav-item nav-link navbar-brand">Positive Thoughts</Link> 
       </div>
     
-          <Link to={`/home`}><a className="nav-item nav-link" href="/home">Home</a></Link> 
-          <Link to={`/profile`}><a className="nav-item nav-link" href="/profile">Profile</a></Link> 
-          <Link onClick={Auth.logout}  to={`/`}> <a className="nav-item nav-link" href="/">Logout</a></Link> 
+          <Link to={`/home`} className="nav-item nav-link" href="/home">Home</Link> 
+          <Link to={`/profile`} className="nav-item nav-link" >Profile</Link> 
+          <Link onClick={Auth.logout}  to={`/`} className="nav-item nav-link" href="/">Logout</Link> 
    
     </nav>
      

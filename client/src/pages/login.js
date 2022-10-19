@@ -53,8 +53,10 @@ console.log("hi");
         variables: { ...userFormData },
       });
 
-      console.log(data);
-      Auth.login(data.login.token);
+      console.log(data.login.user.favThought.map((element) => {
+        return element._id
+      }));
+      Auth.login(data.login.token,JSON.stringify(data.login.user.email));
       navigate(`/home`);
     } catch (e) {
       console.error(e);
