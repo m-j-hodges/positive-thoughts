@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {useQuery} from '@apollo/client'
 import Axios from 'axios'
 // import ReactDOM from 'react-dom';
 import "./ThoughtsCss.css"
@@ -8,6 +9,7 @@ import {useMutation} from '@apollo/client'
 import {STORE_COMMENT} from '../utils/storeComment'
 import Auth from '../utils/auth'
 import {STORE_FAVTHOUGHT} from '../utils/storeFavThought'
+import {QUERY_COMMENT} from '../utils/queryThought'
 
 
 
@@ -21,22 +23,25 @@ console.log(thoughts)
   const [addThought, { data,loading,error }] = useMutation(STORE_THOUGHT);
   const [addComment, {cData, load, err}] = useMutation(STORE_COMMENT)
   const [addFavThought, {newData, loadThought, er}] = useMutation(STORE_FAVTHOUGHT)
+  const {loadComment, commentData} = useQuery(QUERY_COMMENT)
   //  if(loggedIn) {
-const [newFact, setFact] = useState('')
+const [commentState, setComment] = useState({thistext:'', thisauthor:''})
+const [displayLeftComment, setdisplayStatus] = useState('d-none')
 // const [author, setAuthor] = useState('')
 let cardString = []
 
 //fetches Thoughts
-const getStoreThoughts = localStorage.getItem("storedThoughts")
-if(thoughts && !getStoreThoughts ) {
-  const localStoreThoughts = JSON.stringify(thoughts)
-  localStorage.setItem("storedThoughts", localStoreThoughts)
-} else if (getStoreThoughts) {
-  thoughts = JSON.parse(getStoreThoughts)
-}
+// const getStoreThoughts = localStorage.getItem("storedThoughts")
+// if(thoughts && !getStoreThoughts) {
+//   const localStoreThoughts = JSON.stringify(thoughts)
+//   localStorage.setItem("storedThoughts", localStoreThoughts)
+// } else if (getStoreThoughts) {
+//   thoughts = JSON.parse(getStoreThoughts)
+
+// }
 
 
-setTimeout(clearLocalThoughts,1800000)
+setTimeout(clearLocalThoughts,600000)
 
 function clearLocalThoughts() {
   localStorage.removeItem('storedThoughts')
@@ -79,7 +84,7 @@ if(loading) {
 if(error) {
   return `submission error ${error}`
 }
-
+let newComment
 async function submitForm(eve) {
   const {id} = eve.target
   const splitId = id.split("_")
@@ -89,6 +94,8 @@ async function submitForm(eve) {
     variables: formData
   })
 
+setComment({thisText: storeText, thisAuthor: storeUser})
+setdisplayStatus('d-block')
   // window.location.reload()
 
 }
@@ -134,33 +141,33 @@ async function saveFavThought(e) {
             <footer className="blockquote-footer">{item.author} <cite title="Source Title"></cite></footer>
           </blockquote>
         </div>
+        <div id={"comment"+ item._id}>
+        {item.comments.map((thisComment) => (
+          <div>
+          <p> Author: {thisComment.commentor} </p>
+          <p> Comment: {thisComment.commentText} </p>
+          </div>
+        ))}
+        </div>
         <button id={"btn" + "_" + item._id} onClick={(e)=>{showComment(e)}} className="btn btn-primary">leave comment</button>
-        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('submitting comment...') : ('add to favorite comments.')} </button>
-      <div>
-      {loadThought? (<p> saving Favorite.</p>): (<p></p>)}</div>
+        <button className="btn btn-primary" id={"fav"+"_"+item._id} onClick={(e)=>saveFavThought(e)}> {loadThought? ('saving favorite...') : ('add to favorite comments.')} </button>
+      <div id={'leaveComment'+ item._id} className={displayLeftComment}>
+        <p> Author: {commentState.thisauthor}</p>
+        <p> Comment: {commentState.thistext}</p>
+        </div>
         <div id={"div" + item._id} className={displayComment}>
         <form>
   <div className="form-group">
     <label>Your Comment :</label>
-    <input type="text" onChange={(e)=> setText(e.target.value)}className="form-control m-3" id={'commentText' + item._id} placeholder="Example input" />
-    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control m-3" id={'commentor' + item._id} placeholder="Your Username" />
-    <button className="btn btn-primary m-2" id={'submit' + '_' + item._id} type="submit" onClick={(eve) => submitForm(eve)} >{load ? 'loading...' :submitBtn}</button>
+    <input type="text" onChange={(e)=> setText(e.target.value)}className="form-control m-3" id={'commentText' + item._id} placeholder="your comment here." />
+    <input type="text"  onChange={(ev) => setUser(ev.target.value)}className="form-control m-3" id={'commentor' + item._id} placeholder="Username" />
+    <button className="btn btn-primary m-2" id={'submit' + '_' + item._id} type="submit" onClick={async() => await addComment({ variables: {thoughtId: item._id, commentText: storeText, commentor: storeUser}})} >{load ? 'loading...' :submitBtn}</button>
   </div>
   </form>
         </div>
-        {item.comments.map((eachItem) => (
-          eachItem ? (
-          <div>
-          <p> Author: {eachItem.commentor}</p>
-          <p> Comment: {eachItem.commentText}</p>
-          </div>
-          ) : (<div> No comments yet... </div>) 
-        ))}
       </div>
       ))}
-      <button className="btn btn-success" onClick={(e) => querySave(e)}>Query and Save Data</button>
       
-      <button>Click Me!</button> 
       </div>
 
 )

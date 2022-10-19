@@ -41,7 +41,7 @@ const resolvers = {
       return Thought.findOne({ _id: thoughtId })
     },
     thoughts: async () => {
-    return Thought.find().populate('comments')
+    return Thought.find()
   
     }
   },
