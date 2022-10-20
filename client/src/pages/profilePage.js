@@ -16,7 +16,7 @@ import {
   from 'mdb-react-ui-kit';
 import { QUERY_ME, } from '../utils/queries';
 import stanman from '../img/stanman.png'
-import Auth from '../utils/auth';
+
 
 
 function ProfilePage() {
@@ -36,7 +36,6 @@ function ProfilePage() {
 
 
 
-  // Check if data is returning from the `QUERY_ME` query, then the `QUERY_SINGLE_PROFILE` query
 
   return (
     <div>
