@@ -9,11 +9,11 @@ const User = require('../models/users');
 
 const resolvers = {
   Query: {
-    queryComment: async (parent, {thoughtId}) => {
-    return Thought.findOne({_id: thoughtId}).populate('comments')
+    queryComment: async (parent, { thoughtId }) => {
+      return Thought.findOne({ _id: thoughtId }).populate('comments')
     },
-    getFavQuotes: async (parent, {email}) => {
-      return User.findOne({email:email}).populate('favThought')
+    getFavQuotes: async (parent, { email }) => {
+      return User.findOne({ email: email }).populate('favThought')
     },
     users: async () => {
       return User.find();
@@ -41,13 +41,13 @@ const resolvers = {
       return Thought.findOne({ _id: thoughtId })
     },
     thoughts: async () => {
-    return Thought.find()
-  
+      return Thought.find()
+
     }
   },
   Mutation: {
-    storeFavThought: async (parent, {email, thoughtId}) => {
-      return User.findOneAndUpdate({email: email}, {
+    storeFavThought: async (parent, { email, thoughtId }) => {
+      return User.findOneAndUpdate({ email: email }, {
         $addToSet: {
           favThought: thoughtId
         }
@@ -72,7 +72,7 @@ const resolvers = {
       if (!user) {
         throw new AuthenticationError('No user found with this email address');
       }
-      
+
       // If there is a user found, execute the `isCorrectPassword` instance method and check if the correct password was provided
       const correctPw = await user.isCorrectPassword(password);
 
@@ -88,22 +88,22 @@ const resolvers = {
       return { token, user };
     },
 
-    addComment: async (parent, {thoughtId, commentor, commentText}, context) => {
-    
-    return Thought.findOneAndUpdate({_id:thoughtId}, {
-          $addToSet: {comments: {commentText, commentor}},
-        },
-        {new: true, runValidators: true,}
-        )
+    addComment: async (parent, { thoughtId, commentor, commentText }, context) => {
+
+      return Thought.findOneAndUpdate({ _id: thoughtId }, {
+        $addToSet: { comments: { commentText, commentor } },
       },
-    removeComment: async (parent, {thoughtId, commentId}, context) => {
-     const findComment = await Thought.findOneAndUpdate({_id: thoughtId}, {
-      $pull: { comments: {_id: commentId}}
-     }, {new: true}, (err, result) => {
-      if(err) {console.log(err)}
-     })
-     return findComment
-      }
+        { new: true, runValidators: true, }
+      )
+    },
+    removeComment: async (parent, { thoughtId, commentId }, context) => {
+      const findComment = await Thought.findOneAndUpdate({ _id: thoughtId }, {
+        $pull: { comments: { _id: commentId } }
+      }, { new: true }, (err, result) => {
+        if (err) { console.log(err) }
+      })
+      return findComment
+    }
     ,
 
 

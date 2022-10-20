@@ -13,7 +13,7 @@ class AuthService {
     const token = this.getToken();
     return token ? true : false;
   }
-  
+
   isTokenExpired(token) {
     // Decode the token to get its expiration time that was set by the server
     const decoded = decode(token);

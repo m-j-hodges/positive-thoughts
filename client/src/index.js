@@ -15,6 +15,6 @@ const container = document.getElementById('root')
 const root = ReactDOM.createRoot(container)
 
 root.render(
-<App name="positive-thoughts" />)
+    <App name="positive-thoughts" />)
 
 reportWebVitals();

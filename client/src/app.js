@@ -14,10 +14,10 @@ import {
 } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri:'/graphql',
+  uri: '/graphql',
 })
 
-const authLink = setContext((_, {headers}) => {
+const authLink = setContext((_, { headers }) => {
 
   const token = localStorage.getItem('id_token')
   return {
@@ -35,39 +35,39 @@ const client = new ApolloClient({
 
 function App() {
 
-    return (
-      
-<ApolloProvider client={client}>
+  return (
+
+    <ApolloProvider client={client}>
       <Router>
-       
-       <div className="container">
-         <Routes>
-           <Route 
-             path="/" 
-             element={<Login />} 
-           />
-           <Route 
-             path="/home" 
-             element={<Home />} 
-           />
-           <Route 
-             path="/signUp" 
-             element={<SignUp />} 
-           />
-           <Route 
-             path="/profile" 
-             element={<Profile />} 
-           />
-            <Route 
-             path="/profile/:profileId" 
-             element={<Profile />} 
-           />
-         </Routes>
-       </div>
 
-   </Router>
+        <div className="container">
+          <Routes>
+            <Route
+              path="/"
+              element={<Login />}
+            />
+            <Route
+              path="/home"
+              element={<Home />}
+            />
+            <Route
+              path="/signUp"
+              element={<SignUp />}
+            />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/profile/:profileId"
+              element={<Profile />}
+            />
+          </Routes>
+        </div>
+
+      </Router>
     </ApolloProvider>
-    );
-  }
+  );
+}
 
-  export default App;
+export default App;
