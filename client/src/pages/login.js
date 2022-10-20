@@ -16,7 +16,7 @@ import {
   MDBCol,
   MDBInput,
 }
-from 'mdb-react-ui-kit';
+  from 'mdb-react-ui-kit';
 
 
 const Login = (props) => {
@@ -64,36 +64,36 @@ const Login = (props) => {
   return (
 
     <MDBContainer fluid className='my-5'>
-    <MDBRow className='g-0 align-items-center'>
-      <MDBCol size='lg' col='6'>
-        <MDBCard className='my-5' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
-          <MDBCardBody className='p-5 shadow-5 text-center'>
-            <MDBRow className='g-0 align-items-center'>
-              {/* logo image */}
-              <MDBCol className='mr-5 mb-3' md='5' col='4'>
-                <MDBCardImage src={image}  className='w-0' fluid />
-              </MDBCol>
-              <MDBCol>   
-                
-                <form onSubmit={handleFormSubmit}>
-                <h2 className="fw-bold mb-5">Positive Thoughts</h2>
-               
-                  {/* <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/> */}
-                  <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email'/>
-                  <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password'/>
-                  <MDBBtn className='w-100 mb-4' size='lg'>Login</MDBBtn>
-                  <h6 className="mb-2">Don't have an account?</h6>
-                  <Link to="/signUp"><MDBBtn className="mb-4 w-100" size='lg'>Sign Up</MDBBtn></Link>
-                      
-                </form>  
-              </MDBCol>
-            </MDBRow>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-    </MDBRow> 
+      <MDBRow className='g-0 align-items-center'>
+        <MDBCol size='lg' col='6'>
+          <MDBCard className='my-5' style={{ background: 'hsla(0, 0%, 100%, 0.55)', backdropFilter: 'blur(30px)' }}>
+            <MDBCardBody className='p-5 shadow-5 text-center'>
+              <MDBRow className='g-0 align-items-center'>
+                {/* logo image */}
+                <MDBCol className='mr-5 mb-3' md='5' col='4'>
+                  <MDBCardImage src={image} className='w-0' fluid />
+                </MDBCol>
+                <MDBCol>
+
+                  <form onSubmit={handleFormSubmit}>
+                    <h2 className="fw-bold mb-5">Positive Thoughts</h2>
+
+                    {/* <MDBInput name='username' wrapperClass='mb-4' onChange={handleInputChange} label='username' id='form3' type='text'/> */}
+                    <MDBInput name='email' wrapperClass='mb-4' onChange={handleInputChange} label='Email Address' id='typeEmail' type='email' />
+                    <MDBInput name='password' wrapperClass='mb-4' onChange={handleInputChange} label='Password' id='typePassword' type='password' />
+                    <MDBBtn className='w-100 mb-4' size='lg'>Login</MDBBtn>
+                    <h6 className="mb-2">Don't have an account?</h6>
+                    <Link to="/signUp"><MDBBtn className="mb-4 w-100" size='lg'>Sign Up</MDBBtn></Link>
+
+                  </form>
+                </MDBCol>
+              </MDBRow>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
     </MDBContainer>
-  
+
   );
 };
-    export default Login;
+export default Login;
