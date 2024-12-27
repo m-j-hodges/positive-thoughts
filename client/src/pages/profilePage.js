@@ -15,7 +15,7 @@ import {
 }
   from 'mdb-react-ui-kit';
 import { QUERY_ME, } from '../utils/queries';
-import stanman from '../img/stanman.png'
+import profilePicture from '../img/stock_profile.jpg'
 
 
 
@@ -50,7 +50,7 @@ function ProfilePage() {
                   <h3 className='mb-5 text-center'>Profile Information</h3>
 
                   <MDBCol className='mr-5 mb-3' md='5' col='4'>
-                    <MDBCardImage src={stanman} className='img-fluid w-100' alt='profilepicture' fluid='true' />
+                    <MDBCardImage src={profilePicture} className='img-fluid w-100' alt='profilepicture' fluid='true' />
 
                     <br></br>
                     <MDBBtn className='text-center w-100 mb-4 mt-3' size='md'>Change profile picture</MDBBtn>
