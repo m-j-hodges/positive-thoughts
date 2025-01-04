@@ -1,27 +1,25 @@
-import React from 'react'
-
+import { useQuery } from "@apollo/client";
+import React, { useState } from "react";
+import { QUERY_COMMENT } from "../utils/queryThought";
 
 function CommentFeed({ comments }) {
-
+  // const { comments, setComments } = useState([]);
+  // const { loading, data } = useQuery(QUERY_COMMENT, {
+  //   variables: thoughtId,
+  // });
+  // const theseComments = data?.comments || [];
+  
   return (
     <div>
-      {comments && comments.map((comment) => (
-        <div>
-          <p>
-            <a id={comment._id} className="btn btn-primary collapsed" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-          </p>
-          <div className="row">
-            <div className="col">
-              <div className="collapse multi-collapse" id="multiCollapseExample1">
-                <div className="card card-body">
-                  Author: {comment.creator} Comment: {comment.content}
-                </div>
-              </div>
-            </div>
+      {comments &&
+        comments.map((c) => (
+          <div id={"#" + c._id}>
+            <p className="ml-4 mr-4 mb-3"> Author: {c.commentor} </p>
+            <p className="ml-4 mr-4 mb-3"> Comment: {c.commentText} </p>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
-
-  )
+  );
 }
+
+export default CommentFeed;
