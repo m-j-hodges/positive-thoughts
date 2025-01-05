@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/profilePage.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {
   MDBBtn,
@@ -16,11 +16,16 @@ import {
   from 'mdb-react-ui-kit';
 import { QUERY_ME, } from '../utils/queries';
 import profilePicture from '../img/stock_profile.jpg'
+import auth from '../utils/auth';
 
 
 
 function ProfilePage() {
-
+  // implementing auth service into the profile page.
+  const navigate = useNavigate()
+  if(auth.isTokenExpired(auth.getToken())){
+    navigate("/")
+  }
   const { profileId } = useParams();
   const { loading, data } = useQuery(
     QUERY_ME,

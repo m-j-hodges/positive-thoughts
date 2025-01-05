@@ -12,12 +12,31 @@ import { STORE_FAVTHOUGHT } from "../utils/storeFavThought";
 import { QUERY_COMMENT } from "../utils/queryThought";
 import CommentFeed from "./comments";
 import {QUERY_THOUGHTS}from "../utils/queryThoughts"
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { QUERY_ME } from '../utils/queries';
+
 
 let divArray;
 function Thoughts({ thoughts , startIndex}) {
-  const [tFeed, setTFeed] =useState(thoughts)
+
+  const navigate = useNavigate();
+  if(Auth.isTokenExpired(Auth.getToken())){
+    navigate("/")
+  }
+  if(localStorage.getItem("startIndex")){
+    startIndex = parseInt(localStorage.getItem("startIndex"))
+  }
+  const {profileId} = useParams();
+  const [getProfile,{ pLoading, pData, pError }] = useLazyQuery(
+    QUERY_ME,
+    {
+      variables: { profileId: profileId },
+    }
+  );
+  const tThoughts = thoughts.slice(startIndex, startIndex + 20);
+  const [tFeed, setTFeed] =useState(tThoughts)
   const [submitBtn, setSubmit] = useState("submit");
+  const [commentText, setCommentText] = useState("")
   const [storeText, setText] = useState("");
   const [storeUser, setUser] = useState("");
   const [displayComment, showCommentBox] = useState("d-none");
@@ -37,27 +56,30 @@ function Thoughts({ thoughts , startIndex}) {
   // const location = useLocation();
 
   // useEffect(() => {
-  //   if(location == location){
-  //     setTFeed(JSON.parse(getStoreThoughts()))
-  //   }
+
 
   // }, [location])
 
 
   //fetches Thoughts
-  // const getStoreThoughts = () => localStorage.getItem("storedThoughts")
-  // if(thoughts && !getStoreThoughts()) {
-  //    const localStoreThoughts = JSON.stringify(thoughts)
-  //   localStorage.setItem("storedThoughts", localStoreThoughts)
-  // } else if (getStoreThoughts) {
-  //   setTFeed(JSON.parse(getStoreThoughts()))
-
-  // }
+  const getStartIndex = localStorage.getItem("startIndex")
+  if(thoughts && !getStartIndex) {
+      const localStartIndex = JSON.stringify(startIndex)
+     localStorage.setItem("startIndex", localStartIndex)
+   }
 
   setTimeout(clearLocalThoughts, 600000);
 
   function clearLocalThoughts() {
-    localStorage.removeItem("storedThoughts");
+    localStorage.removeItem("startIndex");
+  }
+
+  function CloseForm(e){
+    const { id } = e.target;
+    const newId = id.split("_");
+    const targetDiv = document.getElementById(`div${newId[1]}`);
+    targetDiv.classList.remove("d-block");
+    targetDiv.classList.add("d-none");
   }
 
   function collapseIt(event) {
@@ -107,27 +129,30 @@ function Thoughts({ thoughts , startIndex}) {
     const { cData } = await addComment({
       variables: formData,
     });
-    // setComment({
-    //   thisText: storeText,
-    //   thisAuthor: storeUser,
-    //   thisThoughtId: newThoughtId,
-    // });
 
     // get new thoughts and assign it to proper state.
     const response = await getThoughtData()
     const splicedArray = response.data.thoughts.slice(startIndex, startIndex+20)
     setTFeed(splicedArray)
+    setCommentText("");
+    setText("")
     //setdisplayStatus("d-block");
     // window.location.reload()
   }
 
-  function showComment(e) {
+  async function showComment(e) {
     e.preventDefault();
+    // get profile data if Exists.
+    const profile = await getProfile();
+    const profileData = profile?.data.me || {};
+    profileData.username ? setUser(profileData.username) : setUser("");
     const { id } = e.target;
     const newId = id.split("_");
     const targetDiv = document.getElementById(`div${newId[1]}`);
     targetDiv.classList.remove("d-none");
     targetDiv.classList.add("d-block");
+    const tInput = document.getElementById("commentor" + newId[1]);
+    tInput.disabled = true;
   }
 
   async function saveFavThought(e) {
@@ -182,9 +207,10 @@ function Thoughts({ thoughts , startIndex}) {
                 </div>
               }
             </div>
-            <div className="btn-group" style={{ boxShadow: "none" }}>
+            <div style={{textAlign:"center"}}>
+            <div className="btn-group" style={{ boxShadow: "none", width:60 +"%" }}>
               <button
-                className="btn btn-primary w-25 ml-4 mr-4 mb-3"
+                className="btn btn-primary ml-3 mb-3"
                 id={"btn" + "_" + item._id}
                 onClick={(e) => {
                   showComment(e);
@@ -193,7 +219,7 @@ function Thoughts({ thoughts , startIndex}) {
                 leave comment
               </button>
               <button
-                className="btn btn-primary w-25 ml-4 mr-4 mb-3"
+                className="btn btn-primary mr-3 mb-3"
                 id={"fav" + "_" + item._id}
                 onClick={(e) => saveFavThought(e)}
               >
@@ -203,22 +229,24 @@ function Thoughts({ thoughts , startIndex}) {
                   : "add to favorite quotes"}{" "}
               </button>
             </div>
+            </div>
 
             <div id={"div" + item._id} className={displayComment}>
               <div className="form-group">
                 <label className="ml-3">Your Comment :</label>
                 <input
                   type="text"
-                  onChange={(e) => setText(e.target.value)}
+                  onChange={(e) => {setText(e.target.value);setCommentText(e.target.value)}}
+                  value={commentText}
                   className="form-control m-3 w-50"
                   id={"commentText" + item._id}
                   placeholder="Type your comment"
                 />
                 <input
                   type="text"
-                  onChange={(ev) => setUser(ev.target.value)}
                   className="form-control m-3 w-25"
                   id={"commentor" + item._id}
+                  value={storeUser}
                   placeholder="Username"
                 />
                 <button
@@ -228,6 +256,14 @@ function Thoughts({ thoughts , startIndex}) {
                   onClick={(eve) => submitForm(eve)}
                 >
                   {load ? "loading..." : submitBtn}
+                </button>
+                <button
+                  className="btn btn-danger ml-3"
+                  id={"btnDanger" + "_" + item._id}
+                  type="button"
+                  onClick={(eve) => CloseForm(eve)}
+                >
+                  Cancel
                 </button>
               </div>
             </div>
